@@ -37,7 +37,8 @@
 
 /* Estado normal cuando pasas el ratón */
 .link:hover {
-  color: var(--text-secondary);
+  background-color: var(--color-gray-100);
+  color: var(--color-focus-main);
 }
 
 /* ESTADO ACTIVO: El botón que resalta en blanco con sombra */

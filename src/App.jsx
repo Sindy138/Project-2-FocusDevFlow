@@ -1,38 +1,22 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
+import Timer from "./components/Timer";
+import TimerControls from "./components/TimerControls";
 import ProjectTaskManager from "./components/ProjectTaskManager";
+import { useFlowTimer } from "./hooks/useFlowTimer";
 import "./App.css";
+import DailyLog from "./components/DailyLog";
 
 const Home = () => {
   return (
     <div className="home-layout">
-      {/* Timer (Parte Superior) */}
-      <div
-        className="timer-placeholder"
-        style={{
-          textAlign: "center",
-          padding: "20px",
-          border: "1px dashed #ccc",
-          borderRadius: "20px",
-        }}
-      >
-        [ Aquí irá el componente Timer.jsx ]
-      </div>
+      <Timer />
 
-      {/* Selector de Proyecto y Tarea (Parte Media) */}
       <ProjectTaskManager />
 
-      {/* Controles y el Daily Log (Parte Inferior) */}
-      <div
-        className="controls-placeholder"
-        style={{
-          textAlign: "center",
-          padding: "20px",
-          border: "1px dashed #ccc",
-          borderRadius: "20px",
-        }}
-      >
-        [ Aquí irán TimerControls.jsx y DailyLog.jsx ]
+      <div className="control-section">
+        <TimerControls />
+        <DailyLog />
       </div>
     </div>
   );

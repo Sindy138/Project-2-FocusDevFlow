@@ -1,68 +1,36 @@
-import { useContext, useEffect } from "react"; // Eliminamos useState porque usaremos el global
+import { useContext } from "react";
 import { FocusContext } from "../context/FocusContext";
 import { FiTarget, FiCoffee } from "react-icons/fi";
 import "./Timer.css";
 
-const Timer = () => {
-  // Extraemos los estados globales del contexto
-  const {
-    currentProject,
-    seconds, // Este es tu 'secondsElapsed' pero global
-    setSeconds,
-    isFocusMode,
-    setIsFocusMode,
-    setIsActive,
-  } = useContext(FocusContext);
+const Timer = ({ seconds }) => {
+  const { currentProject, isFocusMode } = useContext(FocusContext);
 
-  // Estados locales cronómetro -> AHORA SON GLOBALES (Vienen del Contexto)
-
-  // Formatear segundos a MM:SS (o HH:MM:SS si te pasas de una hora)
   const formatTime = (totalSeconds) => {
-    const hrs = Math.floor(totalSeconds / 3600);
-    const mins = Math.floor((totalSeconds % 3600) / 60);
-    const secs = totalSeconds % 60;
-
-    const parts = [
-      mins.toString().padStart(2, "0"),
-      secs.toString().padStart(2, "0"),
-    ];
-
-    if (hrs > 0) parts.unshift(hrs.toString().padStart(2, "0"));
-
-    return parts.join(":");
+    const s = totalSeconds || 0;
+    const mins = Math.floor(s / 60);
+    const secs = s % 60;
+    return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
   };
 
   return (
     <div className="timer-container">
+      {/* Indicadores de modo: ahora no tienen onClick porque el cambio es automático */}
       <div className="mode-selector">
-        <button
-          className={`mode-btn ${isFocusMode ? "active-focus" : ""}`}
-          onClick={() => {
-            setIsActive(false); // Paramos el crono al cambiar
-            setIsFocusMode(true);
-            setSeconds(0);
-          }}
-        >
+        <div className={`mode-btn ${isFocusMode ? "active-focus" : ""}`}>
           <FiTarget /> Deep Work
-        </button>
-        <button
-          className={`mode-btn ${!isFocusMode ? "active-break" : ""}`}
-          onClick={() => {
-            setIsActive(false); // Paramos el crono al cambiar
-            setIsFocusMode(false);
-            setSeconds(0);
-          }}
-        >
+        </div>
+        <div className={`mode-btn ${!isFocusMode ? "active-break" : ""}`}>
           <FiCoffee /> Break
-        </button>
+        </div>
       </div>
 
       <div className="timer-circle-wrapper">
-        <div className="timer-circle">
-          {/* El tiempo ahora sube */}
+        {/* Cambiamos la clase del círculo según el modo para el color (púrpura o verde) */}
+        <div className={`timer-circle ${!isFocusMode ? "break-mode" : ""}`}>
           <span className="time-display">{formatTime(seconds)}</span>
           <span className="current-status">
-            {isFocusMode ? "Focus Flow" : "Resting Time"}
+            {isFocusMode ? "Deep Focus" : "Recovery Break"}
           </span>
 
           {currentProject && (

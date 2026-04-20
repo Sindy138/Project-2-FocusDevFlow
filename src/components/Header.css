@@ -16,8 +16,7 @@
 }
 
 .logo a:hover {
-  background-color: var(--color-gray-100);
-  color: var(--color-focus-main);
+  opacity: 0.8;
 }
 
 .actions {
