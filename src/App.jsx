@@ -1,8 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
-{
-  /*import ProjectTaskManager from "./components/ProjectTaskManager";*/
-}
+import ProjectTaskManager from "./components/ProjectTaskManager";
 import "./App.css";
 
 const Home = () => {
