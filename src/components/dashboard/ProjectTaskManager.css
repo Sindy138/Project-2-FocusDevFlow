@@ -1,0 +1,151 @@
+.project-manager-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+/* Crear primer proyecto */
+.create-first-project {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* Botones principales */
+.btn-create,
+.btn-choose,
+.btn-create-confirm {
+  background-color: var(--color-focus-main);
+  color: var(--color-white);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  transition: var(--transition-fast);
+}
+
+.btn-choose {
+  background-color: var(--color-white);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-create-confirm {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+}
+
+/* Input para nuevo proyecto */
+.new-project-input-group {
+  display: flex;
+  gap: 0.75rem;
+  width: 100%;
+  max-width: clamp(300px, 90%, 650px);
+}
+
+.new-project-input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background-color: var(--color-white);
+  box-shadow: var(--shadow-sm);
+  font-size: 1rem;
+  color: var(--text-primary);
+  outline: none;
+  transition: var(--transition-fast);
+}
+
+.new-project-input::placeholder {
+  color: var(--color-gray-400);
+}
+
+.new-project-input:focus {
+  border-color: var(--color-focus-main);
+  box-shadow: 0 0 0 2px rgba(124, 58, 255, 0.1);
+}
+
+/* Desplegable */
+.dropdown-container {
+  position: relative;
+  width: 100%;
+  max-width: clamp(300px, 90%, 400px);
+}
+
+.project-dropdown {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  width: 100%;
+  background: white;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  list-style: none;
+  padding: 0.5rem;
+  box-shadow: var(--shadow-md);
+  z-index: 10;
+}
+
+.project-dropdown li {
+  padding: 0.7rem 1rem;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  transition: var(--transition-fast);
+}
+
+.project-dropdown li:hover {
+  background-color: var(--color-gray-50);
+}
+
+.add-new-option {
+  border-top: 1px solid var(--border-color);
+  color: var(--color-focus-main);
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+
+/* Selector de grupo */
+.selector-group {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.task-input-container {
+  width: 100%;
+  max-width: clamp(300px, 90%, 650px);
+}
+
+.task-input {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background-color: var(--color-white);
+  box-shadow: var(--shadow-sm);
+  text-align: left;
+  font-size: 1rem;
+  color: var(--text-primary);
+  outline: none;
+  transition: var(--transition-fast);
+}
+
+.task-input::placeholder {
+  color: var(--color-gray-400);
+}
+
+.task-input:focus {
+  border-color: var(--color-focus-main);
+  box-shadow: 0 0 0 2px rgba(124, 58, 255, 0.1);
+}

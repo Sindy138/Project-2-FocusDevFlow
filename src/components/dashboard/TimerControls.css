@@ -1,0 +1,45 @@
+.timer-controls-container {
+  display: flex;
+  justify-content: center;
+  padding: 0.2rem;
+}
+
+.btn-start,
+.btn-stop {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.7rem 1.2rem;
+  border-radius: var(--radius-md);
+  font-size: 1.2rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  border: none;
+}
+
+.btn-start {
+  background-color: var(--color-focus-main);
+  color: white;
+  box-shadow: var(--shadow-md);
+}
+
+.btn-start svg {
+  font-size: 1.2rem;
+}
+
+.btn-start:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+}
+
+.btn-stop {
+  background-color: var(--color-white);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-stop:hover {
+  background-color: var(--color-gray-50);
+}

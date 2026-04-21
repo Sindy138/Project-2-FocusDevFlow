@@ -1,0 +1,25 @@
+/*HOMEPAGE LAYOUT*/
+.homeLayout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+  width: 100%;
+}
+
+.controlSection {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 768px) {
+  .homeLayout {
+    gap: var(--space-lg);
+  }
+
+  .controlSection {
+    gap: var(--space-md);
+  }
+}
