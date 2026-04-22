@@ -4,19 +4,35 @@ import { FiTarget, FiCoffee, FiClock } from "react-icons/fi";
 import "./DailyLog.css";
 
 const DailyLog = () => {
-  const { taskLogs, projects } = useContext(FocusContext);
-
-  // Filtrar solo taskLogs de proyectos activos (no completados)
-  const filteredTaskLogs = taskLogs.filter((log) =>
-    projects.some((proj) => proj.id === log.projectId && !proj.completed)
-  );
+  const { currentProject } = useContext(FocusContext);
 
   const formatLogTime = (totalSeconds) => {
     const mins = Math.floor(totalSeconds / 60);
     const secs = totalSeconds % 60;
-    // Si hay minutos, mostramos minutos, si no, solo segundos
     return mins > 0 ? `${mins}m` : `${secs}s`;
   };
+
+  // Si no hay proyecto seleccionado, mostrar vacío
+  if (!currentProject) {
+    return (
+      <div className="daily-log-container">
+        <div className="log-header">
+          <h3 className="log-title">
+            <FiClock /> Daily log
+          </h3>
+          <span className="sessions-count">0 sessions</span>
+        </div>
+        <div className="log-list">
+          <p style={{ color: "#999", textAlign: "center", padding: "2rem" }}>
+            Select a project to view today's sessions
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  // Mostrar solo sesiones del proyecto seleccionado
+  const sessions = currentProject.sessions || [];
 
   return (
     <div className="daily-log-container">
@@ -24,21 +40,22 @@ const DailyLog = () => {
         <h3 className="log-title">
           <FiClock /> Daily log
         </h3>
-        <span className="sessions-count">{filteredTaskLogs.length} projects</span>
+        <span className="sessions-count">{sessions.length} sessions</span>
       </div>
 
       <div className="log-list">
-        {filteredTaskLogs.map((projectGroup, index) => (
-          <div
-            key={`${projectGroup.projectId}-${index}`}
-            className="project-card"
-          >
-            <div className="project-card-header">
-              <strong>{projectGroup.projectName}</strong>
-            </div>
+        <div className="project-card">
+          <div className="project-card-header">
+            <strong>{currentProject.name}</strong>
+          </div>
 
-            <div className="sessions-list">
-              {projectGroup.sessions?.map((session) => (
+          <div className="sessions-list">
+            {sessions.length === 0 ? (
+              <p style={{ color: "#999", padding: "1rem" }}>
+                No sessions yet. Start working!
+              </p>
+            ) : (
+              sessions.map((session) => (
                 <div key={session.id} className="session-row">
                   <div className="session-main">
                     {session.mode === "Focus" ? (
@@ -59,10 +76,10 @@ const DailyLog = () => {
                     {session.mode}
                   </span>
                 </div>
-              ))}
-            </div>
+              ))
+            )}
           </div>
-        ))}
+        </div>
       </div>
     </div>
   );

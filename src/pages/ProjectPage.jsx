@@ -1,13 +1,15 @@
-import { useContext, useMemo } from "react";
+import { useContext, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FocusContext } from "../context/FocusContext";
+import { FiSearch } from "react-icons/fi";
 import styles from "./WrapUpPage.module.css";
 
 const ProjectPage = () => {
   const navigate = useNavigate();
-  const { taskLogs, projects } = useContext(FocusContext);
+  const { projects } = useContext(FocusContext);
+  const [searchQuery, setSearchQuery] = useState("");
 
-  // Funciones de formato (definir ANTES de useMemo)
+  // Funciones de formato
   const formatTime = (seconds) => {
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
@@ -33,11 +35,20 @@ const ProjectPage = () => {
     return projects.filter((proj) => proj.completed);
   }, [projects]);
 
+  // Filtrar proyectos por búsqueda
+  const filteredProjects = useMemo(() => {
+    if (!searchQuery.trim()) {
+      return completedProjects;
+    }
+    return completedProjects.filter((proj) =>
+      proj.name.toLowerCase().includes(searchQuery.toLowerCase()),
+    );
+  }, [completedProjects, searchQuery]);
+
   // Calcular métricas para cada proyecto completado
   const projectMetrics = useMemo(() => {
-    return completedProjects.map((project) => {
-      const projectLog = taskLogs.find((log) => log.projectId === project.id);
-      const sessions = projectLog?.sessions || [];
+    return filteredProjects.map((project) => {
+      const sessions = project.sessions || [];
 
       // Calcular Flow Time (suma de todas las sesiones Focus)
       const flowTimeSeconds = sessions
@@ -80,7 +91,7 @@ const ProjectPage = () => {
         sessions,
       };
     });
-  }, [completedProjects, taskLogs]);
+  }, [filteredProjects]);
 
   return (
     <div className={styles.wrapUpContainer}>
@@ -93,6 +104,45 @@ const ProjectPage = () => {
         </div>
       ) : (
         <div className={styles.wrapUpContent}>
+          {/* Search Bar */}
+          <div
+            className={styles.searchContainer}
+            style={{ marginBottom: "2rem" }}
+          >
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "0.5rem",
+                position: "relative",
+              }}
+            >
+              <FiSearch
+                style={{ position: "absolute", left: "1rem", color: "#666" }}
+              />
+              <input
+                type="text"
+                placeholder="Search projects by name..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                style={{
+                  width: "100%",
+                  padding: "0.75rem 1rem 0.75rem 2.5rem",
+                  border: "1px solid #ddd",
+                  borderRadius: "8px",
+                  fontSize: "1rem",
+                  fontFamily: "inherit",
+                }}
+              />
+            </div>
+            {searchQuery && filteredProjects.length === 0 && (
+              <p style={{ marginTop: "1rem", color: "#999" }}>
+                No projects found matching "{searchQuery}"
+              </p>
+            )}
+          </div>
+
+          {/* Projects List */}
           {projectMetrics.map(
             ({
               project,

@@ -5,10 +5,9 @@ import styles from "./WrapUpPage.module.css";
 
 const WrapUpPage = () => {
   const navigate = useNavigate();
-  const { taskLogs, projects, setCurrentProject, setProjects } =
-    useContext(FocusContext);
+  const { projects, completeProject } = useContext(FocusContext);
 
-  // Funciones de formato (definir ANTES de useMemo)
+  // Funciones de formato
   const formatTime = (seconds) => {
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
@@ -37,8 +36,7 @@ const WrapUpPage = () => {
   // Calcular métricas para cada proyecto
   const projectMetrics = useMemo(() => {
     return activeProjects.map((project) => {
-      const projectLog = taskLogs.find((log) => log.projectId === project.id);
-      const sessions = projectLog?.sessions || [];
+      const sessions = project.sessions || [];
 
       // Calcular Flow Time (suma de todas las sesiones Focus)
       const flowTimeSeconds = sessions
@@ -81,14 +79,10 @@ const WrapUpPage = () => {
         sessions,
       };
     });
-  }, [activeProjects, taskLogs]);
+  }, [activeProjects]);
 
   const handleMarkComplete = (projectId) => {
-    setProjects((prevProjects) =>
-      prevProjects.map((proj) =>
-        proj.id === projectId ? { ...proj, completed: true } : proj,
-      ),
-    );
+    completeProject(projectId);
   };
 
   return (

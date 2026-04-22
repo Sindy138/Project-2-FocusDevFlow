@@ -20,9 +20,9 @@ const ProjectTaskManager = () => {
   const activeProjects = projects.filter((proj) => !proj.completed);
 
   // --- FUNCIONES DE MANEJO ---
-  const handleCreateProject = () => {
+  const handleCreateProject = async () => {
     if (newProjectName.trim()) {
-      addProject(newProjectName);
+      await addProject(newProjectName);
       setNewProjectName("");
       setShowNewProjectInput(false);
       setShowDropdown(false);

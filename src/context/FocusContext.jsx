@@ -3,19 +3,14 @@ import { useFlowTimer } from "../hooks/useFlowTimer";
 
 export const FocusContext = createContext();
 
-export const FocusProvider = ({ children }) => {
-  const [projects, setProjects] = useState(() => {
-    const saved = localStorage.getItem("projects");
-    return saved ? JSON.parse(saved) : [];
-  });
+const API_URL = "http://localhost:3001";
 
-  const [taskLogs, setTaskLogs] = useState(() => {
-    const saved = localStorage.getItem("taskLogs");
-    return saved ? JSON.parse(saved) : [];
-  });
+export const FocusProvider = ({ children }) => {
+  const [projects, setProjects] = useState([]);
   const [currentProject, setCurrentProject] = useState(null);
   const [currentTask, setCurrentTask] = useState("");
   const [isFocusMode, setIsFocusMode] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   // Usando useFlowTimer - solo para Focus Mode (cuenta hacia arriba)
   const {
@@ -31,17 +26,36 @@ export const FocusProvider = ({ children }) => {
   // Estado separado para Break Mode countdown
   const [breakTimeLeft, setBreakTimeLeft] = useState(0);
   const breakSavedRef = useRef(false);
-  const taskNameForBreakRef = useRef(""); // Guardar el nombre de la tarea para la sesión Break
+  const taskNameForBreakRef = useRef("");
+  const calculatedBreakTimeRef = useRef(0);
+  const currentTaskRef = useRef("");
 
-  // Persistencia solo para proyectos
+  // Cargar proyectos desde la API al iniciar
   useEffect(() => {
-    localStorage.setItem("projects", JSON.stringify(projects));
-  }, [projects]);
+    const loadProjects = async () => {
+      try {
+        setIsLoading(true);
+        const response = await fetch(`${API_URL}/projects`);
+        if (response.ok) {
+          const data = await response.json();
+          setProjects(data);
+        } else {
+          console.error("Error loading projects:", response.status);
+        }
+      } catch (error) {
+        console.error("Error loading projects:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-  // Persistencia para taskLogs (sesiones de trabajo)
+    loadProjects();
+  }, []);
+
+  // Asegurar que currentTaskRef siempre tenga el nombre actual
   useEffect(() => {
-    localStorage.setItem("taskLogs", JSON.stringify(taskLogs));
-  }, [taskLogs]);
+    currentTaskRef.current = currentTask;
+  }, [currentTask]);
 
   // Efecto para el countdown del Break Mode
   useEffect(() => {
@@ -59,43 +73,15 @@ export const FocusProvider = ({ children }) => {
       // Break completó automáticamente
       breakSavedRef.current = true;
 
-      // Guardar sesión Break con el nombre de tarea guardado
+      // Guardar sesión Break
       const timestamp = new Date().toLocaleTimeString([], {
         hour: "2-digit",
         minute: "2-digit",
       });
-      const projectId = currentProject?.id || "default";
 
-      setTaskLogs((prevLogs) => {
-        const newLogs = [...prevLogs];
-        const projectIndex = newLogs.findIndex(
-          (log) => log.projectId === projectId,
-        );
-
-        const sessionEntry = {
-          id: crypto.randomUUID(),
-          taskName: taskNameForBreakRef.current || "Recovery Break",
-          duration: calculatedBreakTimeRef.current,
-          time: timestamp,
-          mode: "Break",
-        };
-
-        if (projectIndex !== -1) {
-          const updatedProject = { ...newLogs[projectIndex] };
-          updatedProject.sessions = [sessionEntry, ...updatedProject.sessions];
-          newLogs[projectIndex] = updatedProject;
-          return newLogs;
-        } else {
-          return [
-            {
-              projectId,
-              projectName: currentProject?.name || "No Project",
-              sessions: [sessionEntry],
-            },
-            ...prevLogs,
-          ];
-        }
-      });
+      if (currentProject) {
+        saveSessionToAPI("Break", calculatedBreakTimeRef.current, timestamp);
+      }
 
       setIsFocusMode(true);
       setBreakTimeLeft(0);
@@ -107,64 +93,87 @@ export const FocusProvider = ({ children }) => {
     isActive,
     breakTimeLeft,
     stopTimerHook,
-    currentProject,
     setSeconds,
+    currentProject,
   ]);
 
-  const addProject = (projectName) => {
+  // Crear nuevo proyecto
+  const addProject = async (projectName) => {
     const newProject = {
       id: crypto.randomUUID(),
       name: projectName,
-      tasksCount: 0,
       completed: false,
+      createdAt: new Date().toISOString(),
+      sessions: [],
     };
-    setProjects([...projects, newProject]);
-    setCurrentProject(newProject);
+
+    try {
+      const response = await fetch(`${API_URL}/projects`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newProject),
+      });
+
+      if (response.ok) {
+        const savedProject = await response.json();
+        setProjects([...projects, savedProject]);
+        setCurrentProject(savedProject);
+      } else {
+        console.error("Error creating project:", response.status);
+      }
+    } catch (error) {
+      console.error("Error creating project:", error);
+    }
   };
 
-  // Guardar sesión - versión mejorada
-  const saveSession = useCallback(
-    (durationInSeconds, mode) => {
-      if (durationInSeconds <= 0) return;
+  // Guardar sesión en la API
+  const saveSessionToAPI = useCallback(
+    async (mode, duration, timestamp) => {
+      if (!currentProject || duration <= 0) return;
 
-      const timestamp = new Date().toLocaleTimeString([], {
-        hour: "2-digit",
-        minute: "2-digit",
-      });
-      const projectId = currentProject?.id || "default";
+      const sessionEntry = {
+        id: crypto.randomUUID(),
+        taskName:
+          mode === "Break"
+            ? taskNameForBreakRef.current || "Recovery Break"
+            : currentTask || "Untitled Task",
+        duration: duration,
+        time: timestamp,
+        mode: mode,
+      };
 
-      setTaskLogs((prevLogs) => {
-        const newLogs = [...prevLogs];
-        const projectIndex = newLogs.findIndex(
-          (log) => log.projectId === projectId,
-        );
-
-        const sessionEntry = {
-          id: crypto.randomUUID(),
-          taskName: currentTask || "Untitled Task",
-          duration: durationInSeconds,
-          time: timestamp,
-          mode: mode,
+      try {
+        const updatedProject = {
+          ...currentProject,
+          sessions: [sessionEntry, ...currentProject.sessions],
         };
 
-        if (projectIndex !== -1) {
-          const updatedProject = { ...newLogs[projectIndex] };
-          updatedProject.sessions = [sessionEntry, ...updatedProject.sessions];
-          newLogs[projectIndex] = updatedProject;
-          return newLogs;
-        } else {
-          return [
-            {
-              projectId,
-              projectName: currentProject?.name || "No Project",
-              sessions: [sessionEntry],
-            },
-            ...prevLogs,
-          ];
-        }
-      });
+        const response = await fetch(
+          `${API_URL}/projects/${currentProject.id}`,
+          {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(updatedProject),
+          },
+        );
 
-      // Limpia tarea después de Focus
+        if (response.ok) {
+          const savedProject = await response.json();
+          // Actualizar proyecto en el estado local
+          setProjects((prevProjects) =>
+            prevProjects.map((p) =>
+              p.id === savedProject.id ? savedProject : p,
+            ),
+          );
+          setCurrentProject(savedProject);
+        } else {
+          console.error("Error saving session:", response.status);
+        }
+      } catch (error) {
+        console.error("Error saving session:", error);
+      }
+
+      // Limpiar tarea después de Focus
       if (mode === "Focus") {
         setCurrentTask("");
       }
@@ -172,22 +181,17 @@ export const FocusProvider = ({ children }) => {
     [currentProject, currentTask],
   );
 
-  // Ref para rastrear el nombre de la tarea de la sesión actual
-  const currentTaskRef = useRef("");
-
-  // Asegurar que taskRef siempre tenga el nombre actual
-  useEffect(() => {
-    currentTaskRef.current = currentTask;
-  }, [currentTask]);
-
-  // Ref para rastrear breakTime calculado
-  const calculatedBreakTimeRef = useRef(0);
-
   // Detener Focus e iniciar Break automáticamente
   const stopSession = useCallback(() => {
     if (seconds > 0 && isFocusMode) {
+      // Obtener timestamp
+      const timestamp = new Date().toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+
       // 1. Guardar sesión Focus
-      saveSession(seconds, "Focus");
+      saveSessionToAPI("Focus", seconds, timestamp);
 
       // 2. Guardar el nombre de la tarea para la sesión Break
       taskNameForBreakRef.current = currentTask || "Focus Session";
@@ -200,60 +204,28 @@ export const FocusProvider = ({ children }) => {
       setBreakTimeLeft(calculatedBreakTimeRef.current);
       breakSavedRef.current = false;
 
-      // 5. Resetear Focus timer y segundos
+      // 5. Resetear Focus timer
       stopTimerHook();
       setSeconds(0);
 
-      // 6. Limpiar tarea DESPUÉS de guardar
+      // 6. Limpiar tarea
       setCurrentTask("");
 
-      // 7. Iniciar automáticamente el break (debe ser DESPUÉS de stopTimerHook)
+      // 7. Iniciar automáticamente el break
       setIsActive(true);
     } else if (!isFocusMode && isActive) {
       // Usuario presiona Stop durante el Break
       const breakDuration = calculatedBreakTimeRef.current - breakTimeLeft;
+
       if (breakDuration > 0) {
-        // Guardar manualmente la sesión Break si el usuario presiona Stop
         const timestamp = new Date().toLocaleTimeString([], {
           hour: "2-digit",
           minute: "2-digit",
         });
-        const projectId = currentProject?.id || "default";
 
-        setTaskLogs((prevLogs) => {
-          const newLogs = [...prevLogs];
-          const projectIndex = newLogs.findIndex(
-            (log) => log.projectId === projectId,
-          );
-
-          const sessionEntry = {
-            id: crypto.randomUUID(),
-            taskName: taskNameForBreakRef.current || "Recovery Break",
-            duration: breakDuration,
-            time: timestamp,
-            mode: "Break",
-          };
-
-          if (projectIndex !== -1) {
-            const updatedProject = { ...newLogs[projectIndex] };
-            updatedProject.sessions = [
-              sessionEntry,
-              ...updatedProject.sessions,
-            ];
-            newLogs[projectIndex] = updatedProject;
-            return newLogs;
-          } else {
-            return [
-              {
-                projectId,
-                projectName: currentProject?.name || "No Project",
-                sessions: [sessionEntry],
-              },
-              ...prevLogs,
-            ];
-          }
-        });
+        saveSessionToAPI("Break", breakDuration, timestamp);
       }
+
       breakSavedRef.current = true;
 
       // Volver a Focus
@@ -272,16 +244,44 @@ export const FocusProvider = ({ children }) => {
     seconds,
     isFocusMode,
     isActive,
-    saveSession,
+    saveSessionToAPI,
     stopTimerHook,
     setSeconds,
     setIsActive,
-    currentProject,
     currentTask,
   ]);
 
   // Display time - mostrar breakTimeLeft en Break mode, seconds en Focus
   const displaySeconds = isFocusMode ? seconds : breakTimeLeft;
+
+  // Completar proyecto
+  const completeProject = async (projectId) => {
+    const project = projects.find((p) => p.id === projectId);
+    if (!project) return;
+
+    try {
+      const updatedProject = { ...project, completed: true };
+      const response = await fetch(`${API_URL}/projects/${projectId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedProject),
+      });
+
+      if (response.ok) {
+        const savedProject = await response.json();
+        setProjects((prevProjects) =>
+          prevProjects.map((p) => (p.id === projectId ? savedProject : p)),
+        );
+        if (currentProject?.id === projectId) {
+          setCurrentProject(null);
+        }
+      } else {
+        console.error("Error completing project:", response.status);
+      }
+    } catch (error) {
+      console.error("Error completing project:", error);
+    }
+  };
 
   return (
     <FocusContext.Provider
@@ -290,16 +290,13 @@ export const FocusProvider = ({ children }) => {
         projects,
         setProjects,
         addProject,
+        completeProject,
         currentProject,
         setCurrentProject,
 
         // Tareas
         currentTask,
         setCurrentTask,
-
-        // Log diario
-        taskLogs,
-        saveSession,
 
         // Timer
         seconds: displaySeconds,
@@ -313,6 +310,9 @@ export const FocusProvider = ({ children }) => {
         // Modo
         isFocusMode,
         setIsFocusMode,
+
+        // Estado de carga
+        isLoading,
       }}
     >
       {children}
