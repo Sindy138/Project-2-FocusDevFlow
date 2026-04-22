@@ -1,4 +1,135 @@
 {
-  "projects": [],
-  "taskLogs": []
+  "projects": [
+    {
+      "id": "t1Hg2I3a4q8",
+      "name": "FocusDevFlow Tester",
+      "completed": true,
+      "createdAt": "2026-04-22T10:31:48.011Z",
+      "sessions": [
+        {
+          "id": "dbb126fe-9942-4f1e-8751-d2781dcffc8c",
+          "taskName": "Task Test 2",
+          "duration": 107,
+          "time": "12:08",
+          "mode": "Break"
+        },
+        {
+          "id": "cf13a9ff-52ab-40fb-bb59-ebf2021011d8",
+          "taskName": "Task Test 2",
+          "duration": 1146,
+          "time": "12:06",
+          "mode": "Focus"
+        },
+        {
+          "id": "8e998f82-59b2-42ff-889a-76ddcdbecced",
+          "taskName": "Test 1",
+          "duration": 152,
+          "time": "11:47",
+          "mode": "Break"
+        },
+        {
+          "id": "7992c56f-d152-4066-be8f-dd8a156df1dc",
+          "taskName": "Test 1",
+          "duration": 756,
+          "time": "11:44",
+          "mode": "Focus"
+        }
+      ]
+    },
+    {
+      "id": "bj2-kwI-hjw",
+      "name": "Test 2 FocusDevFlow",
+      "completed": true,
+      "createdAt": "2026-04-22T11:09:45.944Z",
+      "sessions": [
+        {
+          "id": "e7ecefce-f1d6-465d-a856-b635c6fb4a9e",
+          "taskName": "test task 2",
+          "duration": 32,
+          "time": "12:20",
+          "mode": "Break"
+        },
+        {
+          "id": "59a0bfeb-7d33-487c-956f-670f02223598",
+          "taskName": "test task 2",
+          "duration": 157,
+          "time": "12:20",
+          "mode": "Focus"
+        },
+        {
+          "id": "12e371c6-9db7-4328-84a7-762cbf590ebf",
+          "taskName": "Test task 1",
+          "duration": 76,
+          "time": "12:17",
+          "mode": "Break"
+        },
+        {
+          "id": "555a86cc-cabf-4f7b-9c66-231c139d0caf",
+          "taskName": "Test task 1",
+          "duration": 379,
+          "time": "12:16",
+          "mode": "Focus"
+        }
+      ]
+    },
+    {
+      "id": "7fr2KXA1gHw",
+      "name": "Prueba Persistencia",
+      "completed": true,
+      "createdAt": "2026-04-22T11:38:33.935Z",
+      "sessions": [
+        {
+          "id": "1e0a4ac6-0a63-4f49-911e-cf05f8a26bcb",
+          "taskName": "Prueba de sesión",
+          "duration": 4,
+          "time": "12:39 PM",
+          "mode": "Break"
+        },
+        {
+          "id": "cd73c815-de4b-4b0f-b158-47e9b6979215",
+          "taskName": "Prueba de sesión",
+          "duration": 17,
+          "time": "12:39 PM",
+          "mode": "Focus"
+        }
+      ]
+    },
+    {
+      "id": "b53gIRwGs8Y",
+      "name": "Prueba Persistencia 2",
+      "completed": false,
+      "createdAt": "2026-04-22T11:51:03.938Z",
+      "sessions": [
+        {
+          "id": "c9e8fadc-6dd7-40d9-8885-e56be33aee1c",
+          "taskName": "Test 2 nueva Sesión",
+          "duration": 12,
+          "time": "13:06",
+          "mode": "Break"
+        },
+        {
+          "id": "82051a37-252e-4949-90a7-9d7c9abd6cf1",
+          "taskName": "Test 2 nueva Sesión",
+          "duration": 58,
+          "time": "13:06",
+          "mode": "Focus"
+        },
+        {
+          "id": "973e4763-19c1-4d70-bff9-e4eb5ebd19d1",
+          "taskName": "Test de Sesiones",
+          "duration": 10,
+          "time": "12:52",
+          "mode": "Break"
+        },
+        {
+          "id": "d981c12f-e701-417a-baca-7468bde653f6",
+          "taskName": "Test de Sesiones",
+          "duration": 48,
+          "time": "12:52",
+          "mode": "Focus"
+        }
+      ]
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }
