@@ -6,7 +6,8 @@ FocusDevFlow es una plataforma de gestión de la atención diseñada específica
 
 El proyecto ha sido desarrollado bajo una arquitectura de componentes modulares y principios de programación funcional en React:
 
-- **Estado Global:** Gestión centralizada mediante Context API para garantizar la integridad de los datos entre las diferentes vistas (Dashboard, Archive, Wrap-up).
+- **Estado Global:** Gestión centralizada mediante Context para garantizar la integridad de los datos entre las diferentes vistas (Dashboard, Archive, Wrap-up).
+- **Integración de Servicios Externos:** Consumo de Weather API para la contextualización climática del entorno de trabajo, gestionando credenciales de forma segura mediante variables de entorno (`.env`).
 - **Persistencia:** Implementación de `localStorage` para asegurar que el progreso y el historial de proyectos persistan tras recargas del navegador.
 - **Inmutabilidad:** Uso estricto del operador spread y métodos funcionales (`map`, `filter`, `reduce`) para la actualización del estado, evitando efectos secundarios.
 - **Rendimiento:** Uso de `useMemo` para el procesamiento de métricas complejas y `useCallback` para la optimización de funciones de control del temporizador.
@@ -40,6 +41,16 @@ Gestión histórica y profunda de la productividad por entidad de proyecto.
 
 ---
 
+## Metodología de Desarrollo Asistido (AI-Driven Development)
+
+El desarrollo de FocusDevFlow ha integrado la Inteligencia Artificial como un colaborador estratégico en el ciclo de vida del software, siguiendo estándares profesionales de ingeniería:
+
+- **Ingeniería de Prompts para Arquitectura:** Uso de modelos avanzados para la definición de la jerarquía de componentes y la estructura de datos inmutable.
+- **Optimización de UI/UX:** Refactorización asistida de hojas de estilo para implementar diseño responsivo mediante unidades dinámicas (`clamp`, `rem`) y variables CSS globales.
+- **Control de Calidad y Debugging:** Resolución de inconsistencias de estado y errores de renderizado mediante análisis predictivo de trazas de ejecución.
+
+---
+
 ## Estructura de Directorios
 
 ```text
@@ -61,3 +72,43 @@ src/
 └── utils/
     └── helpers.js       # Cálculos de tiempo
 ```
+
+---
+
+## Tiempo de Desarrollo
+
+### Planificación y Setup (4h)
+
+- Definición de jerarquía de componentes y esquema de datos inmutable: **1.5h**
+
+- Configuración de entorno Vite, carpetas modulares y variables de entorno: **1h**
+
+- Diseño de sistema de diseño (tokens CSS y variables globales): **1.5h**
+
+### Arquitectura de Estado y Lógica Core (8h)
+
+- Implementación de AppContext (Provider/Reducer) y persistencia: 2h
+
+- Desarrollo del Custom Hook useFlowTimer: 3h
+
+- Creación de Helpers de utilidad para formateo de tiempo: 3h
+
+### Desarrollo de UI y Componentes (12h)
+
+- Maquetación del Dashboard y componentes de control: 4h
+
+- Implementación del sistema de "Logging" y trazabilidad: 3h
+
+- Construcción de vistas analíticas (DailyWrapUp) y KPIs: 3h
+
+- Integración con Weather API y manejo asíncrono: 2h
+
+### Optimización y QA (6h)
+
+- Refactorización para asegurar inmutabilidad y desestructuración: 2.5h
+
+- Ajustes de diseño responsivo y UX: 2h
+
+- Pruebas de flujo de datos (Trazabilidad padre-hijo): 1.5h
+
+## Tiempo Total Estimado: 30 horas
