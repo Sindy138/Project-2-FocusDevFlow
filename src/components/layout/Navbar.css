@@ -44,8 +44,6 @@
   cursor: pointer;
   transition: all var(--transition-fast);
   color: var(--text-primary);
-  font-size: 0.9rem;
-  font-weight: 500;
   min-height: 70px;
   width: 100%;
   border-radius: 0;
@@ -62,6 +60,7 @@
 .nav-label {
   display: block;
   font-size: 0.75rem;
+  font-weight: 400;
   white-space: nowrap;
   color: var(--text-primary);
   transition: color var(--transition-fast);
@@ -110,7 +109,7 @@
 }
 
 /* ===== TABLET (769px - 1023px) ===== */
-@media (min-width: 769px) {
+@media (min-width: 769px) and (max-width: 1023px) {
   .nav-bottom {
     position: static;
     border-top: none;
@@ -127,21 +126,21 @@
     flex: initial;
   }
 
+  .nav-label {
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
   .nav-item {
     flex-direction: row;
     gap: 0.3rem;
     padding: 0.5rem 0.75rem;
     min-height: auto;
     width: auto;
-    font-size: 0.85rem;
   }
 
   .nav-icon {
     font-size: 1.2rem;
-  }
-
-  .nav-label {
-    font-size: 0.7rem;
   }
 
   .nav-zen-btn {
@@ -177,7 +176,7 @@
     position: static;
     border-top: none;
     border-bottom: 1px solid #e5e5e5;
-    padding: 0.75rem 1.5rem;
+    padding: 0.75rem 0 0.75rem 1.5rem;
   }
 
   .nav-list {
@@ -195,15 +194,10 @@
     padding: 0.5rem 1rem;
     min-height: auto;
     width: auto;
-    font-size: 0.9rem;
   }
 
   .nav-icon {
     font-size: 1.2rem;
-  }
-
-  .nav-label {
-    font-size: 0.75rem;
   }
 
   .nav-zen-btn {

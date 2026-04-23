@@ -74,17 +74,6 @@ const Header = () => {
               className="link-weather"
               onClick={togglePopup}
               title="Weather"
-              style={{
-                background: "none",
-                border: "none",
-                cursor: "pointer",
-                display: "flex",
-                alignItems: "center",
-                gap: "0.5rem",
-                color: "inherit",
-                fontSize: "inherit",
-                fontFamily: "inherit",
-              }}
             >
               <Cloud size={18} />
               Weather
@@ -96,7 +85,7 @@ const Header = () => {
         ) : null}
       </div>
 
-      {isTabletOrDesktop && <Navbar />}
+      {isTabletOrDesktop && isHome && <Navbar />}
     </header>
   );
 };

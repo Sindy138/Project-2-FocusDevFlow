@@ -68,7 +68,7 @@ const Navbar = () => {
             onClick={togglePopup}
             title="Weather"
           >
-            <Cloud size={26} className="nav-icon" />
+            <Cloud size={24} className="nav-icon" />
             <span className="nav-label">Weather</span>
           </button>
         </li>

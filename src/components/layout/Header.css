@@ -59,7 +59,7 @@
 }
 
 /* ===== TABLET (769px - 1023px) ===== */
-@media (min-width: 769px) {
+@media (min-width: 769px) and (max-width: 1023px) {
   .header {
     justify-content: space-between;
     padding: 0.75rem 2rem;
@@ -107,11 +107,6 @@
     background-color: var(--color-focus-soft);
   }
 
-  .nav-label {
-    font-size: 0.95rem;
-    font-weight: 400;
-  }
-
   .nav-zen-btn span {
     display: none;
   }
@@ -124,8 +119,6 @@
     border: none;
     background-color: transparent;
     color: var(--text-primary);
-    font-size: 1rem;
-    font-weight: 300;
     cursor: pointer;
     transition: all var(--transition-normal);
     border-radius: var(--radius-md);
@@ -143,7 +136,8 @@
 @media (min-width: 1024px) {
   .header {
     justify-content: space-between;
-    padding: 0.75rem 1.5rem;
+    padding-left: clamp(8rem, 8rem + (100vw - 1024px) * 0.3, 25rem);
+    padding-right: clamp(8rem, 8rem + (100vw - 1024px) * 0.3, 25rem);
     flex-wrap: nowrap;
     max-width: 100%;
   }
@@ -154,6 +148,18 @@
 
   .logo {
     display: block;
+  }
+
+  .nav-bottom {
+    border-bottom: none;
+  }
+
+  .nav-label {
+    font-size: 1rem;
+  }
+
+  .nav-zen-btn span {
+    display: none;
   }
 
   .header-nav-section {
@@ -193,8 +199,6 @@
     border: none;
     background-color: transparent;
     color: var(--text-primary);
-    font-size: 1rem;
-    font-weight: 300;
     cursor: pointer;
     transition: all var(--transition-normal);
     border-radius: var(--radius-md);
