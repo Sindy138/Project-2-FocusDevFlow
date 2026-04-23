@@ -2,6 +2,9 @@ import { createContext, useState, useCallback } from "react";
 
 export const WeatherContext = createContext();
 
+const API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY;
+const WEATHER_API_URL = "https://api.openweathermap.org/data/2.5/weather";
+
 export const WeatherProvider = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [city, setCity] = useState(() => {
