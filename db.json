@@ -133,9 +133,23 @@
     {
       "id": "M0Qh4cL3-pM",
       "name": "Test post Api",
-      "completed": false,
+      "completed": true,
       "createdAt": "2026-04-23T12:17:31.562Z",
       "sessions": [
+        {
+          "id": "1d6fb91d-90f4-41b8-9b51-34dcefe34bd7",
+          "taskName": "test 1",
+          "duration": 2,
+          "time": "14:54",
+          "mode": "Break"
+        },
+        {
+          "id": "1a6a4be1-2b84-4508-bf72-ce09abcb8d6c",
+          "taskName": "test 1",
+          "duration": 9,
+          "time": "14:54",
+          "mode": "Focus"
+        },
         {
           "id": "eca001b5-f1e9-433a-a9ae-675c79ab286a",
           "taskName": "Task 1",
@@ -148,6 +162,50 @@
           "taskName": "Task 1",
           "duration": 33,
           "time": "13:18",
+          "mode": "Focus"
+        }
+      ]
+    },
+    {
+      "id": "kqu6oVsK0U4",
+      "name": "Mi Proyecto Test",
+      "completed": true,
+      "createdAt": "2026-04-23T13:44:21.972Z",
+      "sessions": [
+        {
+          "id": "9ebd3984-f590-450c-b04b-96e45004f745",
+          "taskName": "Implementing Feature",
+          "duration": 5,
+          "time": "02:45 PM",
+          "mode": "Break"
+        },
+        {
+          "id": "8413382c-6e83-4b45-9cdc-e76893e1df09",
+          "taskName": "Implementing Feature",
+          "duration": 21,
+          "time": "02:45 PM",
+          "mode": "Focus"
+        }
+      ]
+    },
+    {
+      "id": "MptXt02gIVQ",
+      "name": "Testing Flow",
+      "completed": true,
+      "createdAt": "2026-04-23T13:47:26.723Z",
+      "sessions": [
+        {
+          "id": "dd80c844-f9ef-41e1-bbe2-32735df068a8",
+          "taskName": "Testing Task 1",
+          "duration": 2,
+          "time": "02:48 PM",
+          "mode": "Break"
+        },
+        {
+          "id": "b3889187-29be-46ff-9cae-10217791050c",
+          "taskName": "Testing Task 1",
+          "duration": 6,
+          "time": "02:48 PM",
           "mode": "Focus"
         }
       ]
