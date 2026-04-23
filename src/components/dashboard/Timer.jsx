@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { FocusContext } from "../../context/FocusContext";
-import { FiTarget, FiCoffee } from "react-icons/fi";
+import { FiCoffee } from "react-icons/fi";
+import { Brain } from "lucide-react";
 import "./Timer.css";
 
 const Timer = ({ seconds }) => {
@@ -18,10 +19,10 @@ const Timer = ({ seconds }) => {
       {/* Indicadores de modo: mouestran el modo actual activo */}
       <div className="mode-selector">
         <div className={`mode-btn ${isFocusMode ? "active-focus" : ""}`}>
-          <FiTarget /> Deep Work
+          <Brain color="#ffffff" size={20} strokeWidth={1.5} /> Focus Session
         </div>
         <div className={`mode-btn ${!isFocusMode ? "active-break" : ""}`}>
-          <FiCoffee /> Break
+          <FiCoffee /> Recovery Break
         </div>
       </div>
 

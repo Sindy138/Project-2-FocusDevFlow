@@ -8,10 +8,10 @@
 .btn-stop {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 0.7rem 1.2rem;
+  gap: 0.5rem;
+  padding: 0.6rem 0.9rem;
   border-radius: var(--radius-md);
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
   transition: var(--transition-fast);
@@ -25,7 +25,7 @@
 }
 
 .btn-start svg {
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 
 .btn-stop {

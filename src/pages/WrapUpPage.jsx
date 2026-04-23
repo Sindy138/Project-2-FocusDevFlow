@@ -1,6 +1,8 @@
 import { useContext, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { FocusContext } from "../context/FocusContext";
+import { FiClock, FiTarget } from "react-icons/fi";
+import { TrendingUp } from "lucide-react";
 import styles from "./WrapUpPage.module.css";
 
 const WrapUpPage = () => {
@@ -87,6 +89,7 @@ const WrapUpPage = () => {
 
   return (
     <div className={styles.wrapUpContainer}>
+      <h1 className={styles.pageTitle}>Daily Wrap</h1>
       {activeProjects.length === 0 ? (
         <div className={styles.wrapUpEmpty}>
           <p>No projects in progress. Create one to get started!</p>
@@ -109,9 +112,11 @@ const WrapUpPage = () => {
                 {/* KPI Cards */}
                 <div className={styles.kpiCards}>
                   <div className={styles.kpiCard}>
-                    <span className={styles.kpiIcon}></span>
                     <div className={styles.kpiContent}>
-                      <span className={styles.kpiLabel}>Flow time</span>
+                      <div className={styles.kpiHeader}>
+                        <FiClock size={20} color="var(--color-focus-main)" />
+                        <span className={styles.kpiLabel}>Flow time</span>
+                      </div>
                       <span className={styles.kpiValue}>
                         {flowTimeFormatted}
                       </span>
@@ -119,17 +124,21 @@ const WrapUpPage = () => {
                   </div>
 
                   <div className={styles.kpiCard}>
-                    <span className={styles.kpiIcon}></span>
                     <div className={styles.kpiContent}>
-                      <span className={styles.kpiLabel}>Tasks Worked On</span>
+                      <div className={styles.kpiHeader}>
+                        <FiTarget size={20} color="var(--color-focus-main)" />
+                        <span className={styles.kpiLabel}>Tasks Worked On</span>
+                      </div>
                       <span className={styles.kpiValue}>{tasksWorkedOn}</span>
                     </div>
                   </div>
 
                   <div className={styles.kpiCard}>
-                    <span className={styles.kpiIcon}></span>
                     <div className={styles.kpiContent}>
-                      <span className={styles.kpiLabel}>Sessions</span>
+                      <div className={styles.kpiHeader}>
+                        <TrendingUp size={20} color="var(--color-focus-main)" />
+                        <span className={styles.kpiLabel}>Sessions</span>
+                      </div>
                       <span className={styles.kpiValue}>{totalSessions}</span>
                     </div>
                   </div>

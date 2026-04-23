@@ -1,17 +1,15 @@
-import {
-  Link,
-  useLocation,
-  useNavigate,
-  useSearchParams,
-} from "react-router-dom";
-import { FiEye, FiArrowRight, FiArrowLeft, FiSearch } from "react-icons/fi";
-import Navbar from "./Navbar";
+import { Link, useLocation, useSearchParams } from "react-router-dom";
+import { useContext } from "react";
+import { FiArrowRight, FiArrowLeft, FiSearch } from "react-icons/fi";
+import { Cloud } from "lucide-react";
+import { WeatherContext } from "../../context/WeatherContext";
 import "./Header.css";
 
 const Header = () => {
   const location = useLocation();
-  const navigate = useNavigate();
+  const { togglePopup } = useContext(WeatherContext);
   const [searchParams, setSearchParams] = useSearchParams();
+  const isHome = location.pathname === "/";
   const isWrapUp = location.pathname === "/wrap-up";
   const isProjects = location.pathname === "/projects";
 
@@ -28,14 +26,14 @@ const Header = () => {
 
   return (
     <header className="header">
-      {!isProjects && (
+      {isHome && (
         <h1 className="logo">
           <Link to="/">FocusFlow</Link>
         </h1>
       )}
 
       {isProjects && (
-        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+        <div className="header-nav-section">
           <FiArrowLeft size={20} />
           <Link
             to="/wrap-up"
@@ -48,14 +46,7 @@ const Header = () => {
 
       <div className="actions">
         {isProjects ? (
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "0.5rem",
-              position: "relative",
-            }}
-          >
+          <div className="search-container">
             <FiSearch
               style={{ position: "absolute", left: "1rem", color: "#666" }}
             />
@@ -75,22 +66,31 @@ const Header = () => {
             />
           </div>
         ) : isWrapUp ? (
-          // Navbar minimalista para WrapUp
           <nav className="nav-minimal">
+            <button
+              className="link-weather"
+              onClick={togglePopup}
+              title="Weather"
+              style={{
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                gap: "0.5rem",
+                color: "inherit",
+                fontSize: "inherit",
+                fontFamily: "inherit",
+              }}
+            >
+              <Cloud size={18} />
+              Weather
+            </button>
             <Link to="/projects" className="link-projects">
               Projects <FiArrowRight size={16} />
             </Link>
           </nav>
-        ) : (
-          // Navbar normal para Home
-          <Navbar />
-        )}
-
-        {!isWrapUp && !isProjects && (
-          <button className="zenButton" title="Modo Zen">
-            <FiEye size={20} />
-          </button>
-        )}
+        ) : null}
       </div>
     </header>
   );

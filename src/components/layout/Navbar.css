@@ -1,65 +1,125 @@
-.nav {
+/* BOTTOM NAVBAR - FIXED */
+.nav-bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--color-white);
+  border-top: 1px solid #e5e5e5;
   display: flex;
+  justify-content: center;
   align-items: center;
+  z-index: 1000;
+  padding: 0;
 }
 
-.list {
+.nav-list {
   display: flex;
   list-style: none;
   margin: 0;
-  padding: 0; /* Espacio para que el fondo gris asome alrededor de los botones */
-  border-radius: var(--radius-md);
-  gap: 2px;
-}
-
-.list li {
-  display: flex;
-}
-
-/* Estilo para los enlaces (Daily Wrap y Projects) */
-.link,
-.active {
-  display: flex;
+  padding: 0;
+  gap: 0;
+  width: 100%;
+  justify-content: center;
   align-items: center;
-  gap: var(--space-sm);
-  padding: 5px 10px;
+}
+
+.nav-list li {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+}
+
+/* ESTILO BASE - NAV ITEM */
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  padding: 0.6rem 1rem;
   text-decoration: none;
-  font-size: 1.05rem;
-  font-weight: 400;
-  border-radius: var(--radius-sm);
-  transition: var(--transition-fast);
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  transition: all var(--transition-fast);
   color: var(--text-primary);
+  font-size: 0.9rem;
+  font-weight: 500;
+  min-height: 70px;
+  width: 100%;
+  border-radius: 0;
 }
 
-.icon {
-  font-size: 0.8rem; /* Tamaño del icono de react-icons */
+/* ICONO */
+.nav-icon {
+  font-size: 1.5rem;
+  color: var(--color-focus-main);
+  transition: color var(--transition-fast);
 }
 
-/* ESTADO ACTIVO: El botón que resalta en blanco con sombra */
-.active {
-  background-color: var(--color-white);
+/* ETIQUETA */
+.nav-label {
+  display: block;
+  font-size: 0.75rem;
+  white-space: nowrap;
   color: var(--text-primary);
-  box-shadow: var(--shadow-sm);
+  transition: color var(--transition-fast);
 }
 
-/* Ajuste para el texto dentro del NavLink */
-.link span,
-.active span {
-  display: none;
+/* ESTADO ACTIVO */
+.nav-item.active {
+  background-color: var(--color-focus-soft);
+  color: var(--color-focus-main);
 }
 
-/* TABLET & DESKTOP */
+.nav-item.active .nav-icon {
+  color: var(--color-focus-main);
+}
+
+.nav-item.active .nav-label {
+  color: var(--color-focus-main);
+}
+
+/* ZEN MODE BUTTON */
+.nav-zen-btn {
+  padding: 0.75rem 1rem;
+  min-height: 70px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-zen-btn .nav-icon {
+  font-size: 1.5rem;
+}
+
+/* WEATHER BUTTON */
+.nav-weather-btn {
+  padding: 0.75rem 1rem;
+  min-height: 70px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-weather-btn .nav-icon {
+  font-size: 1.5rem;
+}
+
+/* HOVER STATE */
 @media (min-width: 769px) {
-  /* Estado normal cuando pasas el ratón */
-  .link:hover {
+  .nav-item:hover:not(.active) {
     background-color: var(--color-gray-100);
-    color: var(--color-focus-main);
-    box-shadow: var(--shadow-sm);
   }
 
-  .link span,
-  .active span {
-    line-height: 1;
-    display: inline;
+  .nav-item:hover:not(.active) .nav-icon {
+    color: var(--color-focus-main);
+  }
+
+  .nav-item:hover:not(.active) .nav-label {
+    color: var(--color-focus-main);
   }
 }

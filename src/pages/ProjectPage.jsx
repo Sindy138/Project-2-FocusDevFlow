@@ -96,6 +96,7 @@ const ProjectPage = () => {
 
   return (
     <div className={styles.wrapUpContainer}>
+      <h1 className={styles.pageTitle}>Projects</h1>
       {completedProjects.length === 0 ? (
         <div className={styles.wrapUpEmpty}>
           <p>No completed projects yet. Complete a project to see it here!</p>

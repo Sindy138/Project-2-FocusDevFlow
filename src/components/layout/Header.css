@@ -1,11 +1,11 @@
 .header {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   max-width: 100%;
   margin: 0 auto;
   width: 100%;
-  padding: 0.5rem 0.5rem;
+  padding: 0.3rem 0.5rem 0;
   background-color: var(--bg-app);
 }
 
@@ -13,31 +13,32 @@
   text-decoration: none;
   color: var(--text-primary);
   transition: var(--transition-fast);
+  padding: 0;
+  margin: 0;
+}
+
+.logo {
+  display: block;
+}
+
+.header-nav-section {
+  display: none;
 }
 
 .actions {
-  display: flex;
-  align-items: center;
-  gap: var(--space-md);
+  display: none;
 }
 
-.zenButton {
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: var(--text-primary);
+.search-container {
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 8px;
-  border-radius: var(--radius-sm);
-  transition: var(--transition-fast);
+  gap: 0.5rem;
+  position: relative;
 }
 
 /* --- Navbar Minimalista (WrapUp) --- */
 .nav-minimal {
-  display: flex;
-  align-items: flex-end;
+  display: none;
 }
 
 .link-projects {
@@ -57,21 +58,68 @@
   white-space: nowrap;
 }
 
+/* TABLET & DESKTOP */
 @media (min-width: 769px) {
   .header {
     max-width: 900px;
+    justify-content: space-around;
   }
 
   .logo a:hover {
     opacity: 0.5;
   }
 
-  .zenButton:hover {
-    background-color: var(--color-gray-100);
-    color: var(--color-focus-main);
+  .logo {
+    display: block;
+  }
+
+  .header-nav-section {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+  }
+
+  .search-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    position: relative;
+  }
+
+  .nav-minimal {
+    display: flex;
+    align-items: flex-end;
   }
 
   .link-projects:hover {
+    color: var(--color-focus-main);
+    background-color: var(--color-focus-soft);
+  }
+
+  .link-weather {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem 0.75rem 0;
+    border: none;
+    background-color: transparent;
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-weight: 300;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .link-weather:hover {
     color: var(--color-focus-main);
     background-color: var(--color-focus-soft);
   }

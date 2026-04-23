@@ -19,11 +19,11 @@ const TimerControls = () => {
     <div className="timer-controls-container">
       {!isActive ? (
         <button className="btn-start" onClick={handleStart}>
-          <FiPlay size={24} /> Start ({isFocusMode ? "Focus" : "Break"})
+          <FiPlay size={24} /> Start
         </button>
       ) : (
         <button className="btn-stop" onClick={stopSession}>
-          <FiSquare size={24} /> Stop {isFocusMode ? "Focus" : "Break"}
+          <FiSquare size={24} /> Stop
         </button>
       )}
     </div>

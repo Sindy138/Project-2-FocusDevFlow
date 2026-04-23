@@ -97,7 +97,7 @@
     {
       "id": "b53gIRwGs8Y",
       "name": "Prueba Persistencia 2",
-      "completed": false,
+      "completed": true,
       "createdAt": "2026-04-22T11:51:03.938Z",
       "sessions": [
         {
@@ -126,6 +126,28 @@
           "taskName": "Test de Sesiones",
           "duration": 48,
           "time": "12:52",
+          "mode": "Focus"
+        }
+      ]
+    },
+    {
+      "id": "M0Qh4cL3-pM",
+      "name": "Test post Api",
+      "completed": false,
+      "createdAt": "2026-04-23T12:17:31.562Z",
+      "sessions": [
+        {
+          "id": "eca001b5-f1e9-433a-a9ae-675c79ab286a",
+          "taskName": "Task 1",
+          "duration": 7,
+          "time": "13:18",
+          "mode": "Break"
+        },
+        {
+          "id": "43b718aa-1252-4556-a584-284ea4539215",
+          "taskName": "Task 1",
+          "duration": 33,
+          "time": "13:18",
           "mode": "Focus"
         }
       ]

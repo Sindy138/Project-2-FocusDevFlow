@@ -15,17 +15,17 @@
 
 .mode-btn {
   border: none;
-  padding: 0.75rem 1.5rem;
+  padding: 0.6rem 0.6rem;
   border-radius: var(--radius-md);
-  cursor: pointer;
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-weight: 600;
+  font-weight: 400;
   font-size: 1rem;
   transition: all 0.3s ease;
   background: transparent;
-  color: var(--color-gray-400);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-md);
 }
 
 .mode-btn svg {
@@ -35,12 +35,14 @@
 .mode-btn.active-focus {
   background-color: var(--color-focus-main);
   color: var(--color-white);
+  font-weight: 400;
 }
 
 .mode-btn.active-break {
-  background-color: var(--color-white);
-  color: var(--text-primary);
+  background-color: var(--color-break-main);
+  color: var(--color-white);
   box-shadow: var(--shadow-sm);
+  font-weight: 400;
 }
 
 /* CIRCULO */
@@ -62,7 +64,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: var(--color-white);
+  background-color: var(--color-bg-app);
   box-shadow: var(--shadow-md);
   transition: all 0.3s ease;
 }
