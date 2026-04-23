@@ -1,19 +1,19 @@
 .wrapUpContainer {
   width: 100%;
-  max-width: 900px;
+  max-width: 100%;
   margin: 0 auto;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  padding-bottom: 2rem;
-  padding-top: 2rem;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
 }
 
-/* --- Content --- */
+/* --- Content --- MOBILE FIRST --- */
 .wrapUpContent {
   flex: 1;
-  padding: 0;
-  max-width: 900px;
+  padding: 0 1rem;
+  max-width: 100%;
   margin: 0 auto;
   width: 100%;
 }
@@ -21,22 +21,24 @@
 .wrapUpSection {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1.5rem;
 }
 
-/* --- KPI Cards --- */
+/* --- KPI Cards --- MOBILE FIRST --- */
 .kpiCards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
   width: 100%;
 }
 
 .kpiCard {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 1rem;
-  padding: 1.5rem;
+  text-align: center;
+  gap: 0.75rem;
+  padding: 1rem;
   background-color: var(--bg-card);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
@@ -44,13 +46,8 @@
   transition: all var(--transition-normal);
 }
 
-.kpiCard:hover {
-  box-shadow: var(--shadow-md);
-  transform: translateY(-2px);
-}
-
 .kpiIcon {
-  font-size: 2rem;
+  font-size: 1.5rem;
 }
 
 .kpiContent {
@@ -60,41 +57,41 @@
 }
 
 .kpiLabel {
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   color: var(--text-secondary);
   font-weight: 500;
 }
 
 .kpiValue {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 700;
   color: var(--text-primary);
 }
 
-/* --- Project Tasks Card --- */
+/* --- Project Tasks Card --- MOBILE FIRST --- */
 .projectTasksCard {
   background-color: var(--bg-card);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
-  padding: 2rem;
+  padding: 1.5rem;
   box-shadow: var(--shadow-sm);
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
 .projectName {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   font-weight: 700;
   color: var(--text-primary);
   margin: 0;
 }
 
-/* --- Tasks List --- */
+/* --- Tasks List --- MOBILE FIRST --- */
 .tasksList {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
 .taskRow {
@@ -111,19 +108,19 @@
 }
 
 .taskName {
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 600;
   color: var(--text-primary);
 }
 
 .taskTime {
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   color: var(--text-secondary);
   font-weight: 500;
 }
 
 .taskPercentage {
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   color: var(--text-secondary);
   font-weight: 600;
   text-align: right;
@@ -131,9 +128,9 @@
 
 .taskBarContainer {
   width: 100%;
-  height: 8px;
+  height: 6px;
   background-color: var(--color-gray-100);
-  border-radius: 4px;
+  border-radius: 3px;
   overflow: hidden;
 }
 
@@ -144,11 +141,11 @@
     var(--color-focus-main) 0%,
     var(--color-focus-main) 100%
   );
-  border-radius: 4px;
+  border-radius: 3px;
   transition: width var(--transition-normal);
 }
 
-/* --- Mark as Complete Button --- */
+/* --- Buttons --- MOBILE FIRST --- */
 .btnMarkComplete {
   padding: 0.75rem 1.5rem;
   margin-top: 1rem;
@@ -156,36 +153,30 @@
   color: var(--color-white);
   border: none;
   border-radius: var(--radius-md);
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
   transition: all var(--transition-normal);
-  align-self: center;
-}
-
-.btnMarkComplete:hover {
-  background-color: #059669;
-  transform: scale(1.05);
-  box-shadow: var(--shadow-md);
+  width: 100%;
 }
 
 .btnMarkComplete:active {
   transform: scale(0.98);
 }
 
-/* --- Empty State --- */
+/* --- Empty State --- MOBILE FIRST --- */
 .wrapUpEmpty {
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 1.5rem;
-  padding: 2rem;
+  gap: 1rem;
+  padding: 1.5rem;
 }
 
 .wrapUpEmpty p {
-  font-size: 1.125rem;
+  font-size: 1rem;
   color: var(--text-secondary);
   text-align: center;
 }
@@ -196,15 +187,10 @@
   color: var(--color-white);
   border: none;
   border-radius: var(--radius-md);
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
   transition: all var(--transition-normal);
-}
-
-.btnBackHome:hover {
-  background-color: #4f46e5;
-  transform: scale(1.05);
 }
 
 /* --- Completed Badge --- */
@@ -215,33 +201,333 @@
   color: var(--color-white);
   border: none;
   border-radius: var(--radius-md);
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 600;
   text-align: center;
   opacity: 0.8;
 }
 
-/* --- Responsive --- */
-@media (max-width: 768px) {
-  .wrapUpNavbar {
-    padding: 1rem;
-    gap: 0.5rem;
+/* --- Project Card (Expandible) --- MOBILE FIRST --- */
+.projectCard {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  margin-bottom: 1rem;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Card Header - Siempre visible */
+.projectCardHeader {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.projectCardTitle {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.projectCardName {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.projectCardStats {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.projectProgressBar {
+  width: 100%;
+  height: 6px;
+  background-color: var(--color-gray-100);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.projectProgressFill {
+  height: 100%;
+  background-color: var(--color-focus-main);
+  border-radius: 3px;
+  transition: width var(--transition-normal);
+}
+
+.projectStatusIcon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: var(--color-break-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-white);
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  font-weight: bold;
+}
+
+/* Card Expanded Content */
+.projectCardExpanded {
+  padding: 1rem;
+  border-top: 1px solid var(--border-color);
+  background-color: var(--bg-card);
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    max-height: 1000px;
+  }
+}
+
+/* KPI Row - Métricas horizontales - MOBILE FIRST */
+.kpiRow {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.kpiItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+  text-align: center;
+}
+
+.kpiItemLabel {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.kpiItemValue {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* Task Row - Expandido */
+.taskRowExpanded {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.taskRowExpanded .taskHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.25rem;
+}
+
+.taskRowExpanded .taskName {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.taskRowExpanded .taskPercentage {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-focus-main);
+}
+
+/* --- TABLET & DESKTOP --- */
+@media (min-width: 769px) {
+  .wrapUpContainer {
+    padding-bottom: 2rem;
+    padding-top: 2rem;
+    max-width: 900px;
   }
 
   .wrapUpContent {
-    padding: 0 1rem;
+    padding: 0;
+    max-width: 900px;
+  }
+
+  .wrapUpSection {
+    gap: 2rem;
   }
 
   .kpiCards {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
   }
 
-  .projectTasksCard {
+  .kpiCard {
+    flex-direction: row;
+    align-items: center;
+    text-align: left;
     padding: 1.5rem;
   }
 
-  .navButton {
-    padding: 0.5rem 1rem;
+  .kpiIcon {
+    font-size: 2rem;
+  }
+
+  .kpiLabel {
     font-size: 0.875rem;
+  }
+
+  .kpiValue {
+    font-size: 1.5rem;
+  }
+
+  .projectTasksCard {
+    padding: 2rem;
+    gap: 1.5rem;
+  }
+
+  .projectName {
+    font-size: 1.5rem;
+  }
+
+  .tasksList {
+    gap: 1.5rem;
+  }
+
+  .taskName {
+    font-size: 1rem;
+  }
+
+  .taskTime {
+    font-size: 0.875rem;
+  }
+
+  .taskPercentage {
+    font-size: 0.875rem;
+  }
+
+  .taskBarContainer {
+    height: 8px;
+  }
+
+  .taskBar {
+    border-radius: 4px;
+  }
+
+  .btnMarkComplete {
+    width: auto;
+    align-self: center;
+    font-size: 1rem;
+  }
+
+  .wrapUpEmpty {
+    padding: 2rem;
+    gap: 1.5rem;
+  }
+
+  .wrapUpEmpty p {
+    font-size: 1.125rem;
+  }
+
+  .projectCardHeader {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    gap: 2rem;
+  }
+
+  .projectCardTitle {
+    gap: 0.75rem;
+    width: auto;
+  }
+
+  .projectCardName {
+    font-size: 1.1rem;
+  }
+
+  .projectCardStats {
+    font-size: 0.9rem;
+  }
+
+  .projectProgressBar {
+    height: 8px;
+  }
+
+  .projectProgressFill {
+    border-radius: 4px;
+  }
+
+  .projectStatusIcon {
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
+  }
+
+  .projectCardExpanded {
+    padding: 1.5rem;
+  }
+
+  .kpiRow {
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .kpiItemLabel {
+    font-size: 0.85rem;
+  }
+
+  .kpiItemValue {
+    font-size: 1.2rem;
+  }
+
+  .taskRowExpanded .taskName {
+    font-size: 0.9rem;
+  }
+
+  .taskRowExpanded .taskPercentage {
+    font-size: 0.9rem;
+  }
+
+  /* HOVER EFFECTS - TABLET & DESKTOP ONLY */
+  .kpiCard:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+
+  .projectCard:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+
+  .btnMarkComplete:hover {
+    background-color: #059669;
+    transform: scale(1.02);
+    box-shadow: var(--shadow-md);
+  }
+
+  .btnBackHome:hover {
+    background-color: #4f46e5;
+    transform: scale(1.02);
   }
 }

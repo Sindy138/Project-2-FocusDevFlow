@@ -7,7 +7,7 @@
   display: flex;
   list-style: none;
   margin: 0;
-  padding: 4px; /* Espacio para que el fondo gris asome alrededor de los botones */
+  padding: 0; /* Espacio para que el fondo gris asome alrededor de los botones */
   border-radius: var(--radius-md);
   gap: 2px;
 }
@@ -22,9 +22,9 @@
   display: flex;
   align-items: center;
   gap: var(--space-sm);
-  padding: 10px 20px;
+  padding: 5px 10px;
   text-decoration: none;
-  font-size: 1.2rem;
+  font-size: 1.05rem;
   font-weight: 400;
   border-radius: var(--radius-sm);
   transition: var(--transition-fast);
@@ -32,13 +32,7 @@
 }
 
 .icon {
-  font-size: 18px; /* Tamaño del icono de react-icons */
-}
-
-/* Estado normal cuando pasas el ratón */
-.link:hover {
-  background-color: var(--color-gray-100);
-  color: var(--color-focus-main);
+  font-size: 0.8rem; /* Tamaño del icono de react-icons */
 }
 
 /* ESTADO ACTIVO: El botón que resalta en blanco con sombra */
@@ -51,5 +45,21 @@
 /* Ajuste para el texto dentro del NavLink */
 .link span,
 .active span {
-  line-height: 1;
+  display: none;
+}
+
+/* TABLET & DESKTOP */
+@media (min-width: 769px) {
+  /* Estado normal cuando pasas el ratón */
+  .link:hover {
+    background-color: var(--color-gray-100);
+    color: var(--color-focus-main);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .link span,
+  .active span {
+    line-height: 1;
+    display: inline;
+  }
 }

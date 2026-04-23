@@ -1,11 +1,11 @@
 .header {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
-  max-width: 900px;
+  max-width: 100%;
   margin: 0 auto;
   width: 100%;
-  padding: var(--space-lg) var(--space-xl);
+  padding: 0.5rem 0.5rem;
   background-color: var(--bg-app);
 }
 
@@ -13,10 +13,6 @@
   text-decoration: none;
   color: var(--text-primary);
   transition: var(--transition-fast);
-}
-
-.logo a:hover {
-  opacity: 0.8;
 }
 
 .actions {
@@ -38,11 +34,6 @@
   transition: var(--transition-fast);
 }
 
-.zenButton:hover {
-  background-color: var(--color-gray-100);
-  color: var(--color-focus-main);
-}
-
 /* --- Navbar Minimalista (WrapUp) --- */
 .nav-minimal {
   display: flex;
@@ -57,15 +48,31 @@
   border: none;
   background-color: transparent;
   color: var(--text-primary);
-  font-size: 1.7rem;
+  font-size: 1.4rem;
   font-weight: 300;
   cursor: pointer;
   transition: all var(--transition-normal);
   border-radius: var(--radius-md);
   text-decoration: none;
+  white-space: nowrap;
 }
 
-.link-projects:hover {
-  color: var(--color-focus-main);
-  background-color: var(--color-focus-soft);
+@media (min-width: 769px) {
+  .header {
+    max-width: 900px;
+  }
+
+  .logo a:hover {
+    opacity: 0.5;
+  }
+
+  .zenButton:hover {
+    background-color: var(--color-gray-100);
+    color: var(--color-focus-main);
+  }
+
+  .link-projects:hover {
+    color: var(--color-focus-main);
+    background-color: var(--color-focus-soft);
+  }
 }

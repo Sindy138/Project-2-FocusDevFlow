@@ -28,11 +28,6 @@
   font-size: 1.2rem;
 }
 
-.btn-start:hover {
-  transform: translateY(-2px);
-  filter: brightness(1.1);
-}
-
 .btn-stop {
   background-color: var(--color-white);
   color: var(--text-primary);
@@ -40,6 +35,14 @@
   box-shadow: var(--shadow-sm);
 }
 
-.btn-stop:hover {
-  background-color: var(--color-gray-50);
+/* TABLET & DESKTOP */
+@media (min-width: 769px) {
+  .btn-start:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+  }
+
+  .btn-stop:hover {
+    background-color: var(--color-gray-50);
+  }
 }

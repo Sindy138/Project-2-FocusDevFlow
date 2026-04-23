@@ -1,13 +1,14 @@
 import { useContext, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { FocusContext } from "../context/FocusContext";
-import { FiSearch } from "react-icons/fi";
 import styles from "./WrapUpPage.module.css";
 
 const ProjectPage = () => {
   const navigate = useNavigate();
   const { projects } = useContext(FocusContext);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchParams] = useSearchParams();
+  const searchQuery = searchParams.get("q") || "";
+  const [expandedProjectId, setExpandedProjectId] = useState(null);
 
   // Funciones de formato
   const formatTime = (seconds) => {
@@ -104,44 +105,6 @@ const ProjectPage = () => {
         </div>
       ) : (
         <div className={styles.wrapUpContent}>
-          {/* Search Bar */}
-          <div
-            className={styles.searchContainer}
-            style={{ marginBottom: "2rem" }}
-          >
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "0.5rem",
-                position: "relative",
-              }}
-            >
-              <FiSearch
-                style={{ position: "absolute", left: "1rem", color: "#666" }}
-              />
-              <input
-                type="text"
-                placeholder="Search projects by name..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                style={{
-                  width: "100%",
-                  padding: "0.75rem 1rem 0.75rem 2.5rem",
-                  border: "1px solid #ddd",
-                  borderRadius: "8px",
-                  fontSize: "1rem",
-                  fontFamily: "inherit",
-                }}
-              />
-            </div>
-            {searchQuery && filteredProjects.length === 0 && (
-              <p style={{ marginTop: "1rem", color: "#999" }}>
-                No projects found matching "{searchQuery}"
-              </p>
-            )}
-          </div>
-
           {/* Projects List */}
           {projectMetrics.map(
             ({
@@ -151,73 +114,104 @@ const ProjectPage = () => {
               totalSessions,
               tasks,
               totalTime,
-            }) => (
-              <div key={project.id} className={styles.wrapUpSection}>
-                {/* KPI Cards */}
-                <div className={styles.kpiCards}>
-                  <div className={styles.kpiCard}>
-                    <span className={styles.kpiIcon}></span>
-                    <div className={styles.kpiContent}>
-                      <span className={styles.kpiLabel}>Flow time</span>
-                      <span className={styles.kpiValue}>
-                        {flowTimeFormatted}
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className={styles.kpiCard}>
-                    <span className={styles.kpiIcon}></span>
-                    <div className={styles.kpiContent}>
-                      <span className={styles.kpiLabel}>Tasks Worked On</span>
-                      <span className={styles.kpiValue}>{tasksWorkedOn}</span>
-                    </div>
-                  </div>
-
-                  <div className={styles.kpiCard}>
-                    <span className={styles.kpiIcon}></span>
-                    <div className={styles.kpiContent}>
-                      <span className={styles.kpiLabel}>Sessions</span>
-                      <span className={styles.kpiValue}>{totalSessions}</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Project Tasks Card */}
-                <div className={styles.projectTasksCard}>
-                  <h2 className={styles.projectName}>{project.name}</h2>
-
-                  <div className={styles.tasksList}>
-                    {tasks.map((task, idx) => {
-                      const percentage =
-                        totalTime > 0 ? (task.totalTime / totalTime) * 100 : 0;
-                      return (
-                        <div key={idx} className={styles.taskRow}>
-                          <div className={styles.taskHeader}>
-                            <span className={styles.taskName}>{task.name}</span>
-                            <span className={styles.taskTime}>
-                              {formatTaskTime(task.totalTime)}
-                            </span>
-                          </div>
-                          <div className={styles.taskPercentage}>
-                            {percentage.toFixed(0)}%
-                          </div>
-                          <div className={styles.taskBarContainer}>
-                            <div
-                              className={styles.taskBar}
-                              style={{ width: `${percentage}%` }}
-                            />
-                          </div>
+            }) => {
+              const isExpanded = expandedProjectId === project.id;
+              return (
+                <div
+                  key={project.id}
+                  className={styles.projectCard}
+                  onClick={() =>
+                    setExpandedProjectId(isExpanded ? null : project.id)
+                  }
+                >
+                  {/* Card Header - Siempre visible */}
+                  <div className={styles.projectCardHeader}>
+                    {/* Cuando no está expandida, muestra: nombre + stats + barra + icono */}
+                    {!isExpanded && (
+                      <div className={styles.projectCardTitle}>
+                        <h3 className={styles.projectCardName}>
+                          {project.name}
+                        </h3>
+                        <div className={styles.projectCardStats}>
+                          <span>{tasks.length} Tasks</span>
+                          <span>100%</span>
                         </div>
-                      );
-                    })}
+                        <div className={styles.projectProgressBar}>
+                          <div
+                            className={styles.projectProgressFill}
+                            style={{ width: "100%" }}
+                          />
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Cuando está expandida, solo muestra nombre e icono */}
+                    {isExpanded && (
+                      <h3 className={styles.projectCardName}>{project.name}</h3>
+                    )}
+
+                    <div className={styles.projectStatusIcon}>✓</div>
                   </div>
 
-                  <div className={styles.completedBadge}>
-                    ✓ Project Completed
-                  </div>
+                  {/* Card Content - Solo visible cuando está expandida */}
+                  {isExpanded && (
+                    <div className={styles.projectCardExpanded}>
+                      {/* KPI Row */}
+                      <div className={styles.kpiRow}>
+                        <div className={styles.kpiItem}>
+                          <span className={styles.kpiItemLabel}>Flow time</span>
+                          <span className={styles.kpiItemValue}>
+                            {flowTimeFormatted}
+                          </span>
+                        </div>
+                        <div className={styles.kpiItem}>
+                          <span className={styles.kpiItemLabel}>
+                            Tasks Worked On
+                          </span>
+                          <span className={styles.kpiItemValue}>
+                            {tasksWorkedOn}
+                          </span>
+                        </div>
+                        <div className={styles.kpiItem}>
+                          <span className={styles.kpiItemLabel}>Sessions</span>
+                          <span className={styles.kpiItemValue}>
+                            {totalSessions}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Tasks List */}
+                      <div className={styles.tasksList}>
+                        {tasks.map((task, idx) => {
+                          const percentage =
+                            totalTime > 0
+                              ? (task.totalTime / totalTime) * 100
+                              : 0;
+                          return (
+                            <div key={idx} className={styles.taskRowExpanded}>
+                              <div className={styles.taskHeader}>
+                                <span className={styles.taskName}>
+                                  {task.name}
+                                </span>
+                                <span className={styles.taskPercentage}>
+                                  {percentage.toFixed(0)}%
+                                </span>
+                              </div>
+                              <div className={styles.taskBarContainer}>
+                                <div
+                                  className={styles.taskBar}
+                                  style={{ width: `${percentage}%` }}
+                                />
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
                 </div>
-              </div>
-            ),
+              );
+            },
           )}
         </div>
       )}

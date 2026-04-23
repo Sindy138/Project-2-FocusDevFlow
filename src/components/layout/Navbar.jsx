@@ -12,7 +12,7 @@ const Navbar = () => {
             className={({ isActive }) => (isActive ? "active" : "link")}
           >
             <FiBarChart2 className="icon" />
-            <span>Daily Wrap</span>
+            <span>Daily</span>
           </NavLink>
         </li>
         <li>
