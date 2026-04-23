@@ -25,7 +25,7 @@
 }
 
 .btn-start svg {
-  font-size: 1rem;
+  font-size: 0.8rem;
 }
 
 .btn-stop {
@@ -37,6 +37,9 @@
 
 /* TABLET & DESKTOP */
 @media (min-width: 769px) {
+  .btn-start {
+    padding: 0.75rem 1.25rem;
+  }
   .btn-start:hover {
     transform: translateY(-2px);
     filter: brightness(1.1);

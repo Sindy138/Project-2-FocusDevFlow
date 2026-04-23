@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { WeatherProvider } from "./context/WeatherContext";
+import { useMediaQuery } from "./hooks/useMediaQuery";
 import Header from "./components/layout/Header";
 import Navbar from "./components/layout/Navbar";
 import WeatherWidget from "./components/weather/WeatherWidget";
@@ -9,6 +10,8 @@ import ProjectPage from "./pages/ProjectPage";
 import "./App.css";
 
 function App() {
+  const isMobile = !useMediaQuery("(min-width: 769px)");
+
   return (
     <WeatherProvider>
       <Router>
@@ -23,7 +26,7 @@ function App() {
             </Routes>
           </main>
 
-          <Navbar />
+          {isMobile && <Navbar />}
           <WeatherWidget />
         </div>
       </Router>

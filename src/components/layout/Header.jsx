@@ -2,13 +2,16 @@ import { Link, useLocation, useSearchParams } from "react-router-dom";
 import { useContext } from "react";
 import { FiArrowRight, FiArrowLeft, FiSearch } from "react-icons/fi";
 import { Cloud } from "lucide-react";
+import { useMediaQuery } from "../../hooks/useMediaQuery";
 import { WeatherContext } from "../../context/WeatherContext";
+import Navbar from "./Navbar";
 import "./Header.css";
 
 const Header = () => {
   const location = useLocation();
   const { togglePopup } = useContext(WeatherContext);
   const [searchParams, setSearchParams] = useSearchParams();
+  const isTabletOrDesktop = useMediaQuery("(min-width: 769px)");
   const isHome = location.pathname === "/";
   const isWrapUp = location.pathname === "/wrap-up";
   const isProjects = location.pathname === "/projects";
@@ -92,6 +95,8 @@ const Header = () => {
           </nav>
         ) : null}
       </div>
+
+      {isTabletOrDesktop && <Navbar />}
     </header>
   );
 };

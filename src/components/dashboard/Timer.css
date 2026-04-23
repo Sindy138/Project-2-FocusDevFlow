@@ -105,3 +105,14 @@
   padding: 0.4rem 1rem;
   border-radius: 20px;
 }
+
+/* ===== TABLET (769px - 1023px) ===== */
+@media (min-width: 769px) {
+  .mode-selector {
+    gap: 3rem;
+  }
+
+  .mode-btn {
+    padding: 0.75rem 1rem;
+  }
+}

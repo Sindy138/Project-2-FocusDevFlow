@@ -85,3 +85,10 @@
   display: flex;
   flex-direction: column;
 }
+
+/* ===== TABLET (769px - 1023px) ===== */
+@media (min-width: 769px) {
+  .daily-log-container {
+    width: 60%;
+  }
+}
