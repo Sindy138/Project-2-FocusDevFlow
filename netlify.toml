@@ -5,7 +5,8 @@
 publish = "dist"
 
 # Comando para compilar tu proyecto
-command = "npm run build"
+# Instala devDependencies explícitamente para que vite esté disponible
+command = "npm install --include=dev && npm run build"
 
 # Variables de entorno durante el build
 environment = { NODE_ENV = "production" }
