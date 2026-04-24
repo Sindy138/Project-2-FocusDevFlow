@@ -3,7 +3,8 @@ import { useFlowTimer } from "../hooks/useFlowTimer";
 
 export const FocusContext = createContext();
 
-const API_URL = "http://localhost:3001";
+// localStorage key
+const STORAGE_KEY = "focusflow_projects";
 
 export const FocusProvider = ({ children }) => {
   const [projects, setProjects] = useState([]);
@@ -30,26 +31,23 @@ export const FocusProvider = ({ children }) => {
   const calculatedBreakTimeRef = useRef(0);
   const currentTaskRef = useRef("");
 
-  // Cargar proyectos desde la API al iniciar
+  // Cargar proyectos desde localStorage al iniciar
   useEffect(() => {
-    const loadProjects = async () => {
-      try {
-        setIsLoading(true);
-        const response = await fetch(`${API_URL}/projects`);
-        if (response.ok) {
-          const data = await response.json();
-          setProjects(data);
-        } else {
-          console.error("Error loading projects:", response.status);
-        }
-      } catch (error) {
-        console.error("Error loading projects:", error);
-      } finally {
-        setIsLoading(false);
+    try {
+      setIsLoading(true);
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored) {
+        const data = JSON.parse(stored);
+        setProjects(data);
+      } else {
+        setProjects([]);
       }
-    };
-
-    loadProjects();
+    } catch (error) {
+      console.error("Error loading projects:", error);
+      setProjects([]);
+    } finally {
+      setIsLoading(false);
+    }
   }, []);
 
   // Asegurar que currentTaskRef siempre tenga el nombre actual
@@ -88,17 +86,10 @@ export const FocusProvider = ({ children }) => {
       setSeconds(0);
       stopTimerHook();
     }
-  }, [
-    isFocusMode,
-    isActive,
-    breakTimeLeft,
-    stopTimerHook,
-    setSeconds,
-    currentProject,
-  ]);
+  }, [isFocusMode, isActive, breakTimeLeft, currentProject]);
 
   // Crear nuevo proyecto
-  const addProject = async (projectName) => {
+  const addProject = (projectName) => {
     const newProject = {
       id: crypto.randomUUID(),
       name: projectName,
@@ -108,27 +99,18 @@ export const FocusProvider = ({ children }) => {
     };
 
     try {
-      const response = await fetch(`${API_URL}/projects`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newProject),
-      });
-
-      if (response.ok) {
-        const savedProject = await response.json();
-        setProjects([...projects, savedProject]);
-        setCurrentProject(savedProject);
-      } else {
-        console.error("Error creating project:", response.status);
-      }
+      const updatedProjects = [...projects, newProject];
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedProjects));
+      setProjects(updatedProjects);
+      setCurrentProject(newProject);
     } catch (error) {
       console.error("Error creating project:", error);
     }
   };
 
-  // Guardar sesión en la API
+  // Guardar sesión en localStorage
   const saveSessionToAPI = useCallback(
-    async (mode, duration, timestamp) => {
+    (mode, duration, timestamp) => {
       if (!currentProject || duration <= 0) return;
 
       const sessionEntry = {
@@ -148,27 +130,16 @@ export const FocusProvider = ({ children }) => {
           sessions: [sessionEntry, ...currentProject.sessions],
         };
 
-        const response = await fetch(
-          `${API_URL}/projects/${currentProject.id}`,
-          {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(updatedProject),
-          },
+        // Leer siempre la versión fresca desde localStorage
+        const storedProjects =
+          JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+        const updatedProjects = storedProjects.map((p) =>
+          p.id === updatedProject.id ? updatedProject : p,
         );
 
-        if (response.ok) {
-          const savedProject = await response.json();
-          // Actualizar proyecto en el estado local
-          setProjects((prevProjects) =>
-            prevProjects.map((p) =>
-              p.id === savedProject.id ? savedProject : p,
-            ),
-          );
-          setCurrentProject(savedProject);
-        } else {
-          console.error("Error saving session:", response.status);
-        }
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedProjects));
+        setProjects(updatedProjects);
+        setCurrentProject(updatedProject);
       } catch (error) {
         console.error("Error saving session:", error);
       }
@@ -255,28 +226,20 @@ export const FocusProvider = ({ children }) => {
   const displaySeconds = isFocusMode ? seconds : breakTimeLeft;
 
   // Completar proyecto
-  const completeProject = async (projectId) => {
+  const completeProject = (projectId) => {
     const project = projects.find((p) => p.id === projectId);
     if (!project) return;
 
     try {
       const updatedProject = { ...project, completed: true };
-      const response = await fetch(`${API_URL}/projects/${projectId}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(updatedProject),
-      });
+      const updatedProjects = projects.map((p) =>
+        p.id === projectId ? updatedProject : p,
+      );
 
-      if (response.ok) {
-        const savedProject = await response.json();
-        setProjects((prevProjects) =>
-          prevProjects.map((p) => (p.id === projectId ? savedProject : p)),
-        );
-        if (currentProject?.id === projectId) {
-          setCurrentProject(null);
-        }
-      } else {
-        console.error("Error completing project:", response.status);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedProjects));
+      setProjects(updatedProjects);
+      if (currentProject?.id === projectId) {
+        setCurrentProject(null);
       }
     } catch (error) {
       console.error("Error completing project:", error);

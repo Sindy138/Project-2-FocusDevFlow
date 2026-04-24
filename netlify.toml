@@ -1,0 +1,43 @@
+# Configuración de Netlify para FocusDevFlow
+
+[build]
+# Carpeta donde se genera el build final
+publish = "dist"
+
+# Comando para compilar tu proyecto
+command = "npm run build"
+
+# Variables de entorno durante el build
+environment = { NODE_ENV = "production" }
+
+[context.production]
+# Configuración específica para producción
+environment = { NODE_ENV = "production" }
+
+# ===== REDIRECCIONES PARA SPA (REACT ROUTER) =====
+# MUY IMPORTANTE: Asegura que todas las rutas se sirvan desde index.html
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200
+
+# ===== HEADERS DE SEGURIDAD =====
+[[headers]]
+for = "/*"
+[headers.values]
+X-Content-Type-Options = "nosniff"
+X-Frame-Options = "DENY"
+X-XSS-Protection = "1; mode=block"
+Referrer-Policy = "strict-origin-when-cross-origin"
+
+# ===== CACHÉS PARA ASSETS =====
+[[headers]]
+for = "/assets/*"
+[headers.values]
+Cache-Control = "public, max-age=31536000, immutable"
+
+# ===== ASSETS SIN CACHE =====
+[[headers]]
+for = "/index.html"
+[headers.values]
+Cache-Control = "public, max-age=0, must-revalidate"
