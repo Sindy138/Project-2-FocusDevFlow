@@ -34,8 +34,8 @@ const Header = () => {
   const searchQuery = searchParams.get("q") || "";
 
   return (
-    <header className="header">
-      {(isHome || isWrapUp) && (
+    <header className={`header ${isProjects ? "projects-page" : ""}`}>
+      {(isHome || isWrapUp || isProjects) && (
         <>
           <div className="header-branding">
             <h1 className="logo">
@@ -82,7 +82,7 @@ const Header = () => {
           <nav className="nav-minimal">
             <Link to="/projects" className="link-projects">
               <FiFolder
-                size={22}
+                size={20}
                 style={{
                   marginLeft: "0.5rem",
                   color: "var(--color-focus-main)",

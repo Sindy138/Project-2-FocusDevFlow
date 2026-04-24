@@ -96,6 +96,10 @@ h2.app-subtitle {
     padding: 0.8rem 0;
   }
 
+  .projects-page .header-branding {
+    display: none;
+  }
+
   h2.app-subtitle {
     text-align: left;
     padding: 0;
@@ -214,6 +218,10 @@ h2.app-subtitle {
     flex-direction: column;
     align-items: flex-start;
     padding: 0;
+  }
+
+  .projects-page .header-branding {
+    display: none;
   }
 
   h2.app-subtitle {
