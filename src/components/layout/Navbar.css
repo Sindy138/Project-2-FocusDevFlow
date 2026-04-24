@@ -113,8 +113,9 @@
   .nav-bottom {
     position: static;
     border-top: none;
-    border-bottom: 1px solid #e5e5e5;
-    padding: 0.75rem;
+    padding: 0.75rem 0;
+    background-color: transparent;
+    border-top: none;
   }
 
   .nav-list {
@@ -134,7 +135,10 @@
   .nav-item {
     flex-direction: row;
     gap: 0.3rem;
-    padding: 0.5rem 0.75rem;
+    padding: 0.4rem 0.75rem;
+    background-color: var(--color-white);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
     min-height: auto;
     width: auto;
   }
@@ -144,7 +148,7 @@
   }
 
   .nav-zen-btn {
-    padding: 0.5rem 0.75rem;
+    padding: 0.4rem 0.75rem;
     min-height: auto;
   }
 
@@ -153,7 +157,7 @@
   }
 
   .nav-weather-btn {
-    padding: 0.5rem 0.75rem;
+    padding: 0.3rem 0.75rem;
     min-height: auto;
   }
 
@@ -190,10 +194,14 @@
 
   .nav-item {
     flex-direction: row;
-    gap: 0.4rem;
-    padding: 0.5rem 1rem;
+    gap: 0.6rem;
+    padding: 0.4rem 0.75rem;
+    background-color: var(--color-white);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
     min-height: auto;
     width: auto;
+    margin-right: 0.3rem;
   }
 
   .nav-icon {
@@ -201,13 +209,14 @@
   }
 
   .nav-zen-btn {
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 0;
     min-height: auto;
   }
 
   .nav-weather-btn {
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 0.5rem;
     min-height: auto;
+    margin-right: 0.6rem;
   }
 
   .nav-item:hover:not(.active) {

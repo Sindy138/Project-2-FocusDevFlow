@@ -1,6 +1,12 @@
 import { Link, useLocation, useSearchParams } from "react-router-dom";
 import { useContext } from "react";
-import { FiArrowRight, FiArrowLeft, FiSearch } from "react-icons/fi";
+import {
+  FiArrowRight,
+  FiArrowLeft,
+  FiSearch,
+  FiBarChart2,
+  FiFolder,
+} from "react-icons/fi";
 import { Cloud } from "lucide-react";
 import { useMediaQuery } from "../../hooks/useMediaQuery";
 import { WeatherContext } from "../../context/WeatherContext";
@@ -29,20 +35,26 @@ const Header = () => {
 
   return (
     <header className="header">
-      {isHome && (
-        <h1 className="logo">
-          <Link to="/">FocusFlow</Link>
-        </h1>
+      {(isHome || isWrapUp) && (
+        <>
+          <div className="header-branding">
+            <h1 className="logo">
+              <Link to="/">FocusFlow</Link>
+            </h1>
+            <h2 className="app-subtitle">Master your flow state.</h2>
+          </div>
+        </>
       )}
 
       {isProjects && (
         <div className="header-nav-section">
-          <FiArrowLeft size={20} />
-          <Link
-            to="/wrap-up"
-            style={{ textDecoration: "none", color: "inherit" }}
-          >
+          <FiArrowLeft size={16} />
+          <Link to="/wrap-up" style={{ textDecoration: "none" }}>
             Daily Wrap
+            <FiBarChart2
+              size={22}
+              style={{ marginLeft: "0.5rem", color: "var(--color-focus-main)" }}
+            />
           </Link>
         </div>
       )}
@@ -50,35 +62,32 @@ const Header = () => {
       <div className="actions">
         {isProjects ? (
           <div className="search-container">
-            <FiSearch
-              style={{ position: "absolute", left: "1rem", color: "#666" }}
-            />
+            <FiSearch className="search-icon" />
             <input
               type="text"
               placeholder="Search projects..."
               value={searchQuery}
               onChange={handleSearchChange}
               style={{
-                padding: "0.75rem 1rem 0.75rem 2.5rem",
+                padding: "0.5rem 0 0.5rem 2.5rem",
                 border: "1px solid #ddd",
                 borderRadius: "8px",
                 fontSize: "1rem",
                 fontFamily: "inherit",
-                width: "250px",
+                width: "80%",
               }}
             />
           </div>
         ) : isWrapUp ? (
           <nav className="nav-minimal">
-            <button
-              className="link-weather"
-              onClick={togglePopup}
-              title="Weather"
-            >
-              <Cloud size={18} />
-              Weather
-            </button>
             <Link to="/projects" className="link-projects">
+              <FiFolder
+                size={22}
+                style={{
+                  marginLeft: "0.5rem",
+                  color: "var(--color-focus-main)",
+                }}
+              />
               Projects <FiArrowRight size={16} />
             </Link>
           </nav>

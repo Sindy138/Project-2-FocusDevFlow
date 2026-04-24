@@ -363,12 +363,17 @@
   color: var(--color-focus-main);
 }
 
-/* --- TABLET & DESKTOP --- */
-@media (min-width: 769px) {
+/* --- TABLET --- */
+@media (min-width: 769px) and (max-width: 1023px) {
   .wrapUpContainer {
     padding-bottom: 2rem;
-    padding-top: 2rem;
+    padding-top: 1rem;
     max-width: 900px;
+  }
+
+  .pageTitle {
+    text-align: center;
+    margin: 0 0 2.5rem 0;
   }
 
   .wrapUpContent {
@@ -378,6 +383,188 @@
 
   .wrapUpSection {
     gap: 2rem;
+    padding: 0 1rem;
+  }
+
+  .kpiCards {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+
+  .kpiCard {
+    flex-direction: row;
+    align-items: center;
+    text-align: left;
+    padding: 1.5rem;
+  }
+
+  .kpiIcon {
+    font-size: 2rem;
+  }
+
+  .kpiLabel {
+    font-size: 0.875rem;
+  }
+
+  .kpiValue {
+    font-size: 1.5rem;
+  }
+
+  .projectTasksCard {
+    padding: 2rem;
+    gap: 1.5rem;
+  }
+
+  .projectName {
+    font-size: 1.5rem;
+  }
+
+  .tasksList {
+    gap: 1.5rem;
+  }
+
+  .taskName {
+    font-size: 1rem;
+  }
+
+  .taskTime {
+    font-size: 0.875rem;
+  }
+
+  .taskPercentage {
+    font-size: 0.875rem;
+  }
+
+  .taskBarContainer {
+    height: 8px;
+  }
+
+  .taskBar {
+    border-radius: 4px;
+  }
+
+  .btnMarkComplete {
+    width: auto;
+    align-self: center;
+    font-size: 1rem;
+  }
+
+  .wrapUpEmpty {
+    padding: 2rem;
+    gap: 1.5rem;
+  }
+
+  .wrapUpEmpty p {
+    font-size: 1.125rem;
+  }
+
+  .projectCardHeader {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    gap: 2rem;
+  }
+
+  .projectCardTitle {
+    gap: 0.75rem;
+    width: auto;
+  }
+
+  .projectCardName {
+    font-size: 1.1rem;
+  }
+
+  .projectCardStats {
+    font-size: 0.9rem;
+  }
+
+  .projectProgressBar {
+    height: 8px;
+  }
+
+  .projectProgressFill {
+    border-radius: 4px;
+  }
+
+  .projectStatusIcon {
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
+  }
+
+  .projectCardExpanded {
+    padding: 1.5rem;
+  }
+
+  .kpiRow {
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .kpiItemLabel {
+    font-size: 0.85rem;
+  }
+
+  .kpiItemValue {
+    font-size: 1.2rem;
+  }
+
+  .taskRowExpanded .taskName {
+    font-size: 0.9rem;
+  }
+
+  .taskRowExpanded .taskPercentage {
+    font-size: 0.9rem;
+  }
+
+  /* HOVER EFFECTS - TABLET & DESKTOP ONLY */
+  .kpiCard:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+
+  .projectCard:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+
+  .btnMarkComplete:hover {
+    background-color: #059669;
+    transform: scale(1.02);
+    box-shadow: var(--shadow-md);
+  }
+
+  .btnBackHome:hover {
+    background-color: #4f46e5;
+    transform: scale(1.02);
+  }
+}
+
+/* --- DESKTOP --- */
+@media (min-width: 1024px) {
+  .wrapUpContainer {
+    padding-bottom: 2rem;
+    padding-top: 1rem;
+    max-width: 900px;
+  }
+
+  .pageTitle {
+    text-align: center;
+    margin: 0 0 2.5rem 0;
+  }
+
+  .wrapUpContent {
+    padding: 0;
+    max-width: 900px;
+  }
+
+  .wrapUpSection {
+    gap: 2rem;
+    padding: 0 3rem;
   }
 
   .kpiCards {
