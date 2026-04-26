@@ -1,9 +1,9 @@
-import { render, screen, waitFor } from '@testing-library/react';
-import { FocusProvider, FocusContext } from '../src/context/FocusContext';
-import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import { useContext } from 'react';
+import { render, screen, waitFor } from "@testing-library/react";
+import { FocusProvider, FocusContext } from "../src/context/FocusContext";
+import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
+import { useContext } from "react";
 
-describe('FocusContext - localStorage Persistence', () => {
+describe("FocusContext - localStorage Persistence", () => {
   beforeEach(() => {
     localStorage.clear();
   });
@@ -12,12 +12,12 @@ describe('FocusContext - localStorage Persistence', () => {
     localStorage.clear();
   });
 
-  it('carga proyectos desde localStorage al iniciar', async () => {
+  it("carga proyectos desde localStorage al iniciar", async () => {
     const testProjects = [
-      { id: 1, name: 'Proyecto Guardado', completed: false },
+      { id: 1, name: "Proyecto Guardado", completed: false },
     ];
 
-    localStorage.setItem('focusflow_projects', JSON.stringify(testProjects));
+    localStorage.setItem("focusflow_projects", JSON.stringify(testProjects));
 
     const TestComponent = () => {
       const { projects } = useContext(FocusContext);
@@ -33,37 +33,37 @@ describe('FocusContext - localStorage Persistence', () => {
     render(
       <FocusProvider>
         <TestComponent />
-      </FocusProvider>
+      </FocusProvider>,
     );
 
     await waitFor(() => {
-      expect(screen.getByText('Proyecto Guardado')).toBeInTheDocument();
+      expect(screen.getByText("Proyecto Guardado")).toBeInTheDocument();
     });
   });
 
-  it('inicia con un array vacío cuando no hay datos en localStorage', async () => {
+  it("inicia con un array vacío cuando no hay datos en localStorage", async () => {
     const TestComponent = () => {
       const { projects } = useContext(FocusContext);
-      return <div>{projects.length === 0 ? 'Sin proyectos' : 'Con proyectos'}</div>;
+      return (
+        <div>{projects.length === 0 ? "Sin proyectos" : "Con proyectos"}</div>
+      );
     };
 
     render(
       <FocusProvider>
         <TestComponent />
-      </FocusProvider>
+      </FocusProvider>,
     );
 
     await waitFor(() => {
-      expect(screen.getByText('Sin proyectos')).toBeInTheDocument();
+      expect(screen.getByText("Sin proyectos")).toBeInTheDocument();
     });
   });
 
-  it('no falla si localStorage tiene datos corruptos', async () => {
-    const consoleSpy = vi
-      .spyOn(console, 'error')
-      .mockImplementation(() => {});
+  it("no falla si localStorage tiene datos corruptos", async () => {
+    const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
 
-    localStorage.setItem('focusflow_projects', 'JSON INVÁLIDO {]');
+    localStorage.setItem("focusflow_projects", "JSON INVÁLIDO {]");
 
     const TestComponent = () => {
       const { projects } = useContext(FocusContext);
@@ -73,30 +73,30 @@ describe('FocusContext - localStorage Persistence', () => {
     render(
       <FocusProvider>
         <TestComponent />
-      </FocusProvider>
+      </FocusProvider>,
     );
 
     await waitFor(() => {
-      expect(screen.getByText('Proyectos: 0')).toBeInTheDocument();
+      expect(screen.getByText("Proyectos: 0")).toBeInTheDocument();
     });
 
     consoleSpy.mockRestore();
   });
 
-  it('completa la carga (isLoading pasa a false)', async () => {
+  it("completa la carga (isLoading pasa a false)", async () => {
     const TestComponent = () => {
       const { isLoading } = useContext(FocusContext);
-      return <div>{isLoading ? 'Cargando' : 'Listo'}</div>;
+      return <div>{isLoading ? "Cargando" : "Listo"}</div>;
     };
 
     render(
       <FocusProvider>
         <TestComponent />
-      </FocusProvider>
+      </FocusProvider>,
     );
 
     await waitFor(() => {
-      expect(screen.getByText('Listo')).toBeInTheDocument();
+      expect(screen.getByText("Listo")).toBeInTheDocument();
     });
   });
 });
