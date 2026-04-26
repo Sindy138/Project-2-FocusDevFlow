@@ -77,38 +77,34 @@ src/
 
 ## Tiempo de Desarrollo
 
-### Planificación y Setup (4h)
+El proyecto se completó en un ciclo de trabajo intensivo de aproximadamente 48 horas de desarrollo. Cabe destacar que las tareas descritas a continuación se han relizado en intervalos, intercalando una tarea y otra segun las necesidades.
 
-- Definición de jerarquía de componentes y esquema de datos inmutable: **1.5h**
+### Research & UI/UX (6h 30m)
 
-- Configuración de entorno Vite, carpetas modulares y variables de entorno: **1h**
+- Búsqueda de referencias, definición de la metodología Flowtime, diseño de interfaz y arquitectura de componentes (atomic design).
 
-- Diseño de sistema de diseño (tokens CSS y variables globales): **1.5h**
+### Core Architecture (8h)
 
-### Arquitectura de Estado y Lógica Core (8h)
+- Configuración del entorno, implementación de AppContext para estado global y persistencia con localStorage.
 
-- Implementación de AppContext (Provider/Reducer) y persistencia: 2h
+### Feature Development (12h)
 
-- Desarrollo del Custom Hook useFlowTimer: 3h
+- Creación de useFlowTimer, lógica de componentes controlados en selectores y desarrollo del Dashboard principal.
 
-- Creación de Helpers de utilidad para formateo de tiempo: 3h
+### Data Analytics (8h)
 
-### Desarrollo de UI y Componentes (12h)
+- Implementación de vistas de reporte (DailyWrapUp), cálculos con reduce y useMemo para KPIs y barras de progreso.
 
-- Maquetación del Dashboard y componentes de control: 4h
+### Routing & Details (2h)
 
-- Implementación del sistema de "Logging" y trazabilidad: 3h
+- Configuración de rutas dinámicas con react-router-dom, gestión de estados de proyectos (Active/Finished) y useParams.
 
-- Construcción de vistas analíticas (DailyWrapUp) y KPIs: 3h
+### Polish & API (5h 25m)
 
-- Integración con Weather API y manejo asíncrono: 2h
+-Integración de Weather API (OpenWeather), gestión de .env, eliminación de Zen Mode (Funtion + CSS) y corrección de bugs de renderizado.
 
-### Optimización y QA (6h)
+## Tiempo Total de desarrollo: 41horas 55min
 
-- Refactorización para asegurar inmutabilidad y desestructuración: 2.5h
+## Presentación
 
-- Ajustes de diseño responsivo y UX: 2h
-
-- Pruebas de flujo de datos (Trazabilidad padre-hijo): 1.5h
-
-## Tiempo Total Estimado: 30 horas
+-Presentación Aplicación hecha en Canva.
