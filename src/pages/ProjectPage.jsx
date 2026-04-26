@@ -1,14 +1,26 @@
 import { useContext, useMemo, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { FiSearch } from "react-icons/fi";
 import { FocusContext } from "../context/FocusContext";
+import { useMediaQuery } from "../hooks/useMediaQuery";
 import styles from "./WrapUpPage.module.css";
 
 const ProjectPage = () => {
   const navigate = useNavigate();
   const { projects } = useContext(FocusContext);
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const searchQuery = searchParams.get("q") || "";
   const [expandedProjectId, setExpandedProjectId] = useState(null);
+  const isTabletOrDesktop = useMediaQuery("(min-width: 769px)");
+
+  const handleSearchChange = (e) => {
+    const query = e.target.value;
+    if (query.trim()) {
+      setSearchParams({ q: query });
+    } else {
+      setSearchParams({});
+    }
+  };
 
   // Funciones de formato
   const formatTime = (seconds) => {
@@ -97,6 +109,38 @@ const ProjectPage = () => {
   return (
     <div className={styles.wrapUpContainer}>
       <h1 className={styles.pageTitle}>Projects</h1>
+      {!isTabletOrDesktop && (
+        <div
+          className="search-container"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            width: "50%",
+            margin: "0 auto 1rem auto",
+          }}
+        >
+          <FiSearch
+            className="search-icon"
+            style={{ position: "absolute", left: "0.85rem", bottom: "1.6rem" }}
+          />
+          <input
+            type="text"
+            placeholder="Search projects..."
+            value={searchQuery}
+            onChange={handleSearchChange}
+            style={{
+              padding: "0.5rem 0 0.5rem 2.5rem",
+              border: "1px solid #ddd",
+              borderRadius: "8px",
+              fontSize: "1rem",
+              fontFamily: "inherit",
+              width: "100%",
+              margin: "0 auto 1rem auto",
+              display: "block",
+            }}
+          />
+        </div>
+      )}
       {completedProjects.length === 0 ? (
         <div className={styles.wrapUpEmpty}>
           <p>No completed projects yet. Complete a project to see it here!</p>
