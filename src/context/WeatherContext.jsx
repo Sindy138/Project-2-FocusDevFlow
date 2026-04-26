@@ -59,6 +59,10 @@ export const WeatherProvider = ({ children }) => {
         }
 
         const data = await response.json();
+        
+        // Simular delay de 3 segundos
+        await new Promise(resolve => setTimeout(resolve, 3000));
+        
         const temp = Math.round(data.main.temp);
         const description = data.weather[0].description;
         const message = getWeatherMessage(temp);

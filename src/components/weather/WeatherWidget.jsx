@@ -74,7 +74,7 @@ const WeatherWidget = () => {
             className="weather-search-btn"
             disabled={loading}
           >
-            {loading ? "Buscando..." : "Buscar"}
+            {loading ? "Loading" : "Buscar"}
           </button>
         </form>
 
