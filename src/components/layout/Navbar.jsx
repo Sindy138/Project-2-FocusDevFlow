@@ -1,6 +1,6 @@
 import { NavLink, useLocation } from "react-router-dom";
 import { useContext } from "react";
-import { FiBarChart2, FiFolder, FiEye, FiClock } from "react-icons/fi";
+import { FiBarChart2, FiFolder, FiClock } from "react-icons/fi";
 import { Cloud } from "lucide-react";
 import { WeatherContext } from "../../context/WeatherContext";
 import "./Navbar.css";
@@ -11,11 +11,6 @@ const Navbar = () => {
   const isHome = location.pathname === "/";
   const isWrapUp = location.pathname === "/wrap-up";
   const isProjects = location.pathname === "/projects";
-
-  const handleZenMode = () => {
-    // Zen mode logic will go here
-    console.log("Zen mode activated");
-  };
 
   return (
     <nav className="nav-bottom">
@@ -72,20 +67,6 @@ const Navbar = () => {
             <span className="nav-label">Weather</span>
           </button>
         </li>
-
-        {/* Zen Mode - Solo en Home */}
-        {isHome && (
-          <li>
-            <button
-              className="nav-item nav-zen-btn"
-              onClick={handleZenMode}
-              title="Zen Mode"
-            >
-              <FiEye className="nav-icon" />
-              <span className="nav-label">Zen Mode</span>
-            </button>
-          </li>
-        )}
       </ul>
     </nav>
   );

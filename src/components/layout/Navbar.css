@@ -80,20 +80,6 @@
   color: var(--color-focus-main);
 }
 
-/* ZEN MODE BUTTON */
-.nav-zen-btn {
-  padding: 0.75rem 1rem;
-  min-height: 70px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.nav-zen-btn .nav-icon {
-  font-size: 1.5rem;
-}
-
 /* WEATHER BUTTON */
 .nav-weather-btn {
   padding: 0.75rem 1rem;
@@ -147,15 +133,6 @@
     font-size: 1.2rem;
   }
 
-  .nav-zen-btn {
-    padding: 0.4rem 0.75rem;
-    min-height: auto;
-  }
-
-  .nav-zen-btn .nav-icon {
-    font-size: 1.4rem;
-  }
-
   .nav-weather-btn {
     padding: 0.3rem 0.75rem;
     min-height: auto;
@@ -206,11 +183,6 @@
 
   .nav-icon {
     font-size: 1.2rem;
-  }
-
-  .nav-zen-btn {
-    padding: 0.5rem 0;
-    min-height: auto;
   }
 
   .nav-weather-btn {

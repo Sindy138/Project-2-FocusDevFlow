@@ -178,10 +178,6 @@ h2.app-subtitle {
     background-color: var(--color-focus-soft);
   }
 
-  .nav-zen-btn span {
-    display: none;
-  }
-
   .link-weather {
     display: flex;
     align-items: center;
