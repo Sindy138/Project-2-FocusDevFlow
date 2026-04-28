@@ -41,6 +41,27 @@ Gestión histórica y profunda de la productividad por entidad de proyecto.
 
 ---
 
+## Herramientas de IA Utilizadas
+
+### GitHub Copilot Chat (Claude Haiku)
+
+Herramienta principal durante el ciclo completo de desarrollo en Visual Studio Code:
+
+- **Flujo de Trabajo y Arquitectura:** Soporte en la jerarquía de componentes modulares, estructura de datos inmutable y patrones de gestión del estado global mediante Context API.
+- **Soporte en creación de Componentes:** Para el desarrollo de componentes funcionales en React (Timer, ProjectTaskManager, DailyLog, WeatherWidget).
+- **Soporte Hooks y Lógica** Soporte en custom hook `useFlowTimer` y `useMediaQuery`.
+- **Soporte Integral:** Asistencia durante la resolución de bugs menores, optimización de renderizado con `useMemo` y `useCallback`, e integración de servicios externos como Weather API.
+
+### Google Gemini
+
+Complemento estratégico para la resolución de desafíos técnicos específicos:
+
+- **Debugging Técnico:** Resolución de errores complejos relacionados con sincronización de estado, efectos secundarios en hooks y conflictos de re-renderización.
+- **Diseño Responsivo:** Optimización de estilos CSS mediante media queries, implementación de unidades dinámicas (`clamp`, `calc`) y adaptación de layouts para diferentes viewports.
+- **Validación de Conceptos:** Verificación de mejores prácticas en React y arquitectura de aplicaciones front-end.
+
+---
+
 ## Metodología de Desarrollo Asistido (AI-Driven Development)
 
 El desarrollo de FocusDevFlow ha integrado la Inteligencia Artificial como un colaborador estratégico en el ciclo de vida del software, siguiendo estándares profesionales de ingeniería:
@@ -107,4 +128,4 @@ El proyecto se completó en un ciclo de trabajo intensivo de aproximadamente 48 
 
 ## Presentación
 
--Presentación Aplicación hecha en Canva.
+- Presentación Aplicación hecha en Canva. **10h**
